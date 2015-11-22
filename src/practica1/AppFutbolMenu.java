@@ -65,7 +65,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta Jugador");
-                    //f.AltaJugador();
+                    f.AltaJugador();
                     
                     Espacio();
                     break;
@@ -178,6 +178,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar los jugadores que hay en una posición");
+                    f.ListarJugadores();
                     
                     Espacio();
                     break;

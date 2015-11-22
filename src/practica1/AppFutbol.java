@@ -53,70 +53,164 @@ public class AppFutbol{
 		//Declaraciones
 		int id, borrar = 1;
 		String aux;
-		Boolean bucle, mostrar;
+		Boolean bucle, mostrar, error;
 		Object key;
 		Iterator<Integer> it;
-		//Doy la opción de que se le muestren los equipos que hay para que elija uno
-		bucle = mostrar = true;
-		try{
-        	do{
-        		System.out.println("¿Desea que se le muestren los equipos en el sistema? S/N");
-        		aux = in.next();
-        		if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
-        			mostrar = true;
-        			bucle = false;
-        		}
-        		else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
-        			mostrar = false;
-        			bucle = false;
-        		}
-        		else{
-        			System.out.println("Error");
-        		}
-        	}while(bucle);
-        }
-        catch(Exception e){
-           	System.out.println("Error");
-           	BajaEquipo();
-        }
-		//Si quiere verlos
-		if(mostrar){
-			ListarEquipos();
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
 		}
-		//Borro el equipo por id
-		bucle = true;
-		do{
-        	id = EquipoId();
-        	it = mEquipo.keySet().iterator();
-    		while(it.hasNext()){
-    			key = it.next();
-    			if(mEquipo.get(key).GetEquipoId() == id){
-    				bucle = false;
-    				borrar = id;
-    			}
-    		}
-        }while(bucle);
-		mEquipo.remove(borrar);
+		else{
+			//Doy la opción de que se le muestren los equipos que hay para que elija uno
+			bucle = mostrar = true;
+			error = false;
+			try{
+				do{
+					System.out.println("¿Desea que se le muestren los equipos en el sistema? S/N");
+					aux = in.next();
+					if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+						mostrar = true;
+						bucle = false;
+					}
+					else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+						mostrar = false;
+						bucle = false;
+					}
+					else{
+						System.out.println("Error");
+					}
+				}while(bucle);
+			}
+			catch(Exception e){
+				System.out.println("Error");
+				error = true;
+			}
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Si quiere verlos
+				if(mostrar){
+					ListarEquipos();
+				}
+				//Borro el equipo por id
+				bucle = true;
+				do{
+					id = EquipoId();
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).GetEquipoId() == id){
+							bucle = false;
+							borrar = id;
+						}
+					}
+				}while(bucle);
+				mEquipo.remove(borrar);
+			}
+		}
 	}
+	//DONE
 	public void AltaJugador(){ //Se da de alta en un equipo y si no está en el sistema también
 		//Declaraciones
+		Jugador jugador = null;
 		Object key;
 		Iterator<Integer> it;
-		int id;
-		Boolean bucle;
-		//Pido la id y busco que no esté repetida
-		do{
-			id = PersonaId();
-			bucle = false;
-			it = mEquipo.keySet().iterator();
-			while(it.hasNext()){
-				key = it.next();
-				if(mEquipo.get(key).GetEquipoId() == id){
-					System.out.println("Ya hay un equipo con esa id");
-					bucle = true;
+		String nombre, email, tlf, posicion, aux;
+		int id, id2, salario, num;
+		Boolean bucle, titular, error, mostrar;
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Pido la id y busco que no esté repetida
+			bucle = mostrar = true;
+			error = false;
+			id2 = -1;
+			do{
+				id = PersonaId();
+				bucle = false;
+				it = mJugador.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					if(mJugador.get(key).GetPersonaId() == id){
+						System.out.println("Ya hay un jugador con esa id");
+						bucle = true;
+					}
+				}
+			}while(bucle);
+			//Como no está repetido creo el nuevo Jugador
+			nombre = PersonaNombre();
+			email = PersonaEmail();
+			tlf = PersonaTlf();
+			salario = JugadorSalario();
+			posicion = JugadorPosicion();
+			titular = JugadorTitular();
+			num = JugadorNumero();
+			if(id == -1 || nombre.compareTo("-1") == 0 || email.compareTo("-1") == 0 
+					|| tlf.compareTo("-1") == 0 || salario == -1 || posicion.compareTo("-1") == 0
+					|| num == -1){
+				error = true;
+			}
+			else{
+				//Creo el jugador
+				Personas persona = new Personas(id, nombre, email, tlf);
+				jugador = new Jugador(persona, salario, posicion, titular, num);
+				//Doy la opcion de mostrar los equipos en los que meter al jugador
+				bucle = true;
+				try{
+					do{
+						System.out.println("¿Desea que se le muestren los equipos en el sistema? S/N");
+						aux = in.next();
+						if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+							mostrar = true;
+							bucle = false;
+						}
+						else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+							mostrar = false;
+							bucle = false;
+						}
+						else{
+							System.out.println("Error");
+						}
+					}while(bucle);
+				}
+				catch(Exception e){
+					System.out.println("Error");
+					error = true;
 				}
 			}
-		}while(bucle);
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Muestro los equipos
+				if(mostrar){
+					ListarEquipos();
+				}
+				//Meto al jugador en la base de datos y en un equipo
+				mJugador.put(id, jugador);
+				//Pido que meta al jugador en un equipo
+				bucle = true;
+				do{
+					System.out.println("Introduzca al jugador en un equipo");
+					id2 = EquipoId();
+					if(id2 == -1){
+						bucle = false;
+					}
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).GetEquipoId() == id2){
+							mEquipo.get(key).AltaJugador(jugador);
+							bucle = false;
+						}
+					}
+				}while(bucle);
+			}
+			if(id2 == -1){
+				System.out.println("Ha habido un error");
+			}
+		}
 	}
 	public void BajaJugador(){ // de un equipo, no del sistema
 		
@@ -165,19 +259,19 @@ public class AppFutbol{
 		
 	}
 	//DONE
-		public void ListarEquipos(){
-			if(mEquipo.isEmpty()){
-				System.out.println("No hay equipos en el sistema");
-			}
-			else{
-				System.out.println("Los equipos son:");
-				for (Entry<Integer, Equipo> equipo : mEquipo.entrySet()){
-					Equipo valor = equipo.getValue();
-					System.out.print("El equipo con id: " + valor.GetEquipoId());
-					System.out.println(" y puntuación de: " + valor.GetEquipoPuntos());
-				}
+	public void ListarEquipos(){
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			System.out.println("Los equipos son:");
+			for (Entry<Integer, Equipo> equipo : mEquipo.entrySet()){
+				Equipo valor = equipo.getValue();
+				System.out.print("El equipo con id: " + valor.GetEquipoId());
+				System.out.println(" y puntuación de: " + valor.GetEquipoPuntos());
 			}
 		}
+	}
 	//DONE
 	public void ListarEstadios(){
 		if(mEstadio.isEmpty()){
@@ -206,8 +300,40 @@ public class AppFutbol{
 	public void ListarPartidosEquipo(){//Devuelve la info del partido dado un equipo
 		
 	}
+	//DONE
 	public void ListarJugadores(){//dada una posición en el campo
-		
+		//Declaraciones
+		String posicion;
+		if(mJugador.isEmpty()){
+			System.out.println("No hay jugadores en el sistema");
+		}
+		else{
+			System.out.println("Seleccione la posición");
+			posicion = JugadorPosicion();
+			if(posicion.compareTo("-1") == 0){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				System.out.println("Los jugadores en la posición de " + posicion + " son:");
+				for (Entry<Integer, Jugador> jugador : mJugador.entrySet()){
+					Jugador valor = jugador.getValue();
+					if(valor.GetJugadorPosicion() == posicion){
+						System.out.print("El jugador con id: " + valor.GetPersonaId());
+						System.out.print(" de nombre: " + valor.GetPersonaNombre());
+						System.out.print(" con email: " + valor.GetPersonaEmail());
+						System.out.print(" con tlf: " + valor.GetPersonaTlf());
+						System.out.print(" gana: " + valor.GetJugadorSalario());
+						System.out.print(" tiene el número: " + valor.GetJugadorNumero());
+						if(valor.GetJugadorTitular()){
+							System.out.println(" es titular");
+						}
+						else{
+							System.out.println(" no es titular");
+						}
+					}
+				}
+			}
+		}
 	}
 	public void listarJugadoresEquipo(){//dado un equipo
 		
@@ -308,7 +434,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	id = PersonaId();
+        	id = -1;
         }
         return id;
     }
@@ -320,7 +446,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	nombre = PersonaNombre();
+        	nombre = "-1";
         }
         return nombre;
     }
@@ -332,7 +458,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	email = PersonaEmail();
+        	email = "-1";
         }
         return email;
     }
@@ -345,7 +471,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	tlf = PersonaTlf();
+        	tlf = "-1";
         }
         return tlf;
     }
@@ -357,7 +483,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	salario = JugadorSalario();
+        	salario = -1;
         }
         return salario;
     }
@@ -374,7 +500,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	posicion = JugadorPosicion();
+        	posicion = "-1";
         }
         return posicion;
     }
@@ -402,7 +528,7 @@ public class AppFutbol{
         }
         catch(Exception e){
            	System.out.println("Error");
-           	titular = JugadorTitular();
+           	titular = false;
         }
         return titular;
     }
@@ -414,7 +540,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	numero = JugadorNumero();
+        	numero = -1;
         }
         return numero;
     }
@@ -447,7 +573,7 @@ public class AppFutbol{
         }
         catch(Exception e){
         	System.out.println("Error");
-        	tipo = ArbitroTipo();
+        	tipo = "-1";
         }
         return tipo;
 	}
@@ -475,7 +601,7 @@ public class AppFutbol{
 		}
 		catch(Exception e){
 			System.out.println("Error");
-			anio = FechaAnio();
+			anio = -1;
 		}
 		return anio;
 	}
@@ -489,7 +615,7 @@ public class AppFutbol{
 		}
 		catch(Exception e){
 			System.out.println("Error");
-			mes = FechaMes();
+			mes = -1;
 		}
 		return mes-1;
 	}
@@ -503,7 +629,7 @@ public class AppFutbol{
 		}
 		catch(Exception e){
 			System.out.println("Error");
-			dia = FechaDia();
+			dia = -1;
 		}
 		return dia;
 	}
@@ -517,7 +643,7 @@ public class AppFutbol{
 		}
 		catch(Exception e){
 			System.out.println("Error");
-			hora = FechaHora();
+			hora = -1;
 		}
 		return hora;
 	}
@@ -531,7 +657,7 @@ public class AppFutbol{
 		}
 		catch(Exception e){
 			System.out.println("Error");
-			minuto = FechaMinuto();
+			minuto = -1;
 		}
 		return minuto;
 	}
