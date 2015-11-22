@@ -213,11 +213,87 @@ public class AppFutbol{
 		}
 	}
 	public void BajaJugador(){ // de un equipo, no del sistema
+		//Declaraciones
+		int i, id, borrar, ide;
+		Boolean bucle, mostrar, error;
+		String aux;
+		Object key, borr;
+		Iterator<Integer> it;
 		if(mJugador.isEmpty()){
 			System.out.println("No hay jugadores en el sistema");
 		}
 		else{
-			
+			//Doy la opción de que se le muestren los equipos que hay para que elija uno
+			bucle = mostrar = true;
+			error = false;
+			borrar = 0;
+			borr = null;
+			try{
+				do{
+					System.out.println("¿Desea que se le muestren los jugadores en el sistema? S/N");
+					aux = in.next();
+					if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+						mostrar = true;
+						bucle = false;
+					}
+					else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+						mostrar = false;
+						bucle = false;
+					}
+					else{
+						System.out.println("Error");
+					}
+				}while(bucle);
+			}
+			catch(Exception e){
+				System.out.println("Error");
+				error = true;
+			}
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Si quiere verlos
+				if(mostrar){
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						System.out.print("En el equipo de id: " +mEquipo.get(key).GetEquipoId());
+						System.out.println(" están:");
+						for(i = 0; i < mEquipo.get(key).ejugador.size(); i++){
+							System.out.print("El jugador: " + mEquipo.get(key).ejugador.get(i).GetPersonaNombre());
+							System.out.println(" con id: " + mEquipo.get(key).ejugador.get(i).GetPersonaId());
+						}
+					}
+				}
+				//Borro el equipo por id
+				bucle = true;
+				do{
+					System.out.println("De qué equipo quieres borrar al jugador");
+					ide = EquipoId();
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).GetEquipoId() == ide){
+							borr = key;
+							bucle = false;
+						}
+					}
+				}while(bucle);
+				bucle = true;
+				do{
+					id = PersonaId();
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						for(i = 0; i < mEquipo.get(borr).ejugador.size(); i++){
+							borrar = id;
+							bucle = false;
+						}
+					}
+				}while(bucle);
+				mEquipo.get(borr).BajaJugador(borrar);
+			}
 		}
 	}
 	public void AltaArbitro(){
@@ -329,24 +405,75 @@ public class AppFutbol{
 					Jugador valor = jugador.getValue();
 					if(valor.GetJugadorPosicion() == posicion){
 						System.out.print("El jugador con id: " + valor.GetPersonaId());
-						System.out.print(" de nombre: " + valor.GetPersonaNombre());
-						System.out.print(" con email: " + valor.GetPersonaEmail());
-						System.out.print(" con tlf: " + valor.GetPersonaTlf());
-						System.out.print(" gana: " + valor.GetJugadorSalario());
-						System.out.print(" tiene el número: " + valor.GetJugadorNumero());
+						System.out.print(", de nombre: " + valor.GetPersonaNombre());
+						System.out.print(", con email: " + valor.GetPersonaEmail());
+						System.out.print(", con tlf: " + valor.GetPersonaTlf());
+						System.out.print(", gana: " + valor.GetJugadorSalario());
+						System.out.print(", tiene el número: " + valor.GetJugadorNumero());
 						if(valor.GetJugadorTitular()){
-							System.out.println(" es titular");
+							System.out.println(" y es titular");
 						}
 						else{
-							System.out.println(" no es titular");
+							System.out.println(" y no es titular");
 						}
 					}
 				}
 			}
 		}
 	}
-	public void listarJugadoresEquipo(){//dado un equipo
-		
+	//DONE
+	public void ListarJugadoresEquipo(){//dado un equipo
+		//Declaraciones
+		int id, i;
+		Boolean novacio = false, bucle = true;
+		Iterator<Integer> it;
+		Object key, elegido = null;
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Compruebo que los equipos tengan jugadores
+			it = mEquipo.keySet().iterator();
+			while(it.hasNext()){
+				key = it.next();
+				if(mEquipo.get(key).ejugador.isEmpty() == false){
+					novacio = true;
+				}
+			}
+			if(novacio){
+				do{
+					System.out.println("Seleccione el equipo");
+					id = EquipoId();
+					if(id == -1){
+						System.out.println("Ha habido un error");
+					}
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).GetEquipoId() == id){
+							bucle = false;
+							elegido = key;
+						}
+					}
+				}while(bucle);
+				System.out.println("Los jugadores en el equipo de id: " + mEquipo.get(elegido).GetEquipoId() + " son:");
+				for(i = 0; i < mEquipo.get(elegido).ejugador.size(); i++){
+					System.out.print("El jugador con id: " + mEquipo.get(elegido).ejugador.get(i).GetPersonaId());
+					System.out.print(", de nombre: " + mEquipo.get(elegido).ejugador.get(i).GetPersonaNombre());
+					System.out.print(", con email: " + mEquipo.get(elegido).ejugador.get(i).GetPersonaEmail());
+					System.out.print(", con tlf: " + mEquipo.get(elegido).ejugador.get(i).GetPersonaEmail());
+					System.out.print(", gana: " + mEquipo.get(elegido).ejugador.get(i).GetJugadorSalario());
+					System.out.print(", tiene el número: " + mEquipo.get(elegido).ejugador.get(i).GetJugadorNumero());
+					System.out.print(", juega de: " + mEquipo.get(elegido).ejugador.get(i).GetJugadorPosicion());
+					if(mEquipo.get(elegido).ejugador.get(i).GetJugadorTitular()){
+						System.out.println(" y es titular");
+					}
+					else{
+						System.out.println(" y no es titular");
+					}	
+				}
+			}
+		}
 	}
 	public void Salvar(){
 		

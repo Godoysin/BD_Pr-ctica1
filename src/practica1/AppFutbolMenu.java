@@ -74,7 +74,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Jugador");
-                    //f.BajaJugador();
+                    f.BajaJugador();
                     
                     Espacio();
                     break;
@@ -187,7 +187,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar los jugadores de un equipo y sus posiciones");
-                    //f.ListarJugadoresEquipo();
+                    f.ListarJugadoresEquipo();
                     
                     Espacio();
                     break;
