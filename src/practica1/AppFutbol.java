@@ -446,6 +446,7 @@ public class AppFutbol{
 	public void AltaPartido(){
 		//Declaraciones
 		Estadio estadio;
+		ArrayList<Arbitro> arbitro = new ArrayList<Arbitro>();
 		ArrayList<Jugador> jugador1, jugador2;
 		Equipo equipo1, equipo2;
 		Boolean bucle, ida, aniadir;
@@ -550,43 +551,54 @@ public class AppFutbol{
 						ida = PartidoIda();
 						//Añado un árbitro
 						ListarArbitros();
-						idarbitro = PersonaId();
-						it = mArbitro.keySet().iterator();
 						do{
-							
+							bucle = true;
+							System.out.println("Introduzca los árbitros del partido");
+							idarbitro = PersonaId();
+							it = mArbitro.keySet().iterator();
 							while(it.hasNext()){
 								key = it.next();
 								if(mArbitro.get(key).GetPersonaId() == idarbitro){
+									arbitro.add(mArbitro.get(key));
 									bucle = false;
 								}
 							}
 						}while(bucle);
+						//Doy la opción de añadir más
 						do{
-							try{
+							do{
+								System.out.println("¿Quieres añadir otro árbitro? S/N");
+								aux = in.next();
+								if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+									aniadir = true;
+									bucle = false;
+								}
+								else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+									aniadir = false;
+									bucle = false;
+								}
+								else{
+									System.out.println("Error");
+								}
+							}while(bucle);
+							if(aniadir){
 								do{
-									System.out.println("¿Quieres añadir otro árbitro? S/N");
-									aux = in.next();
-									if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
-										aniadir = true;
-										bucle = false;
-									}
-									else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
-										aniadir = false;
-										bucle = false;
-									}
-									else{
-										System.out.println("Error");
+									bucle = true;
+									idarbitro = PersonaId();
+									it = mArbitro.keySet().iterator();
+									while(it.hasNext()){
+										key = it.next();
+										if(mArbitro.get(key).GetPersonaId() == idarbitro){
+											for(i = 0; i < ){
+												arbitro.add(mArbitro.get(key));
+												bucle = false;
+											}
+										}
 									}
 								}while(bucle);
-								if(aniadir){
-									idarbitro = PersonaId();
-								}
 							}
-					    	catch(Exception e){
-					    		System.out.println("Error");
-					           	aniadir = false;
-					        }
 						}while(aniadir);
+						
 					}
 				}
 			}
