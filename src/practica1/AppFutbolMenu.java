@@ -28,13 +28,13 @@ public class AppFutbolMenu {
             System.out.println("11 .- Listar Estadios");
             System.out.println("12 .- Listar Arbitros");
             System.out.println("13 .- Devolver Total Partidos");
-            System.out.println("14 .- Listar InformaciÃ³n de Partidos dada una fecha");
+            System.out.println("14 .- Listar Información de Partidos dada una fecha");
             System.out.println("15 .- Listar los partidos hechos por un equipo");
-            System.out.println("16 .- Listar los jugadores que hay de una posiciÃ³n");
+            System.out.println("16 .- Listar los jugadores que hay de una posición");
             System.out.println("17 .- Listar los jugadores de un equipo y sus posiciones");
             System.out.println("18 .- Cargar Sistema");
             System.out.println("19 .- Salvar los datos");
-            System.out.println("20 .- Calcular el campeÃ³n");
+            System.out.println("20 .- Calcular el campeón");
             System.out.println("21 .- Calcular posiciones");
             System.out.println("22 .- Salir");
             Espacio();

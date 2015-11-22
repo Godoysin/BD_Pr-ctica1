@@ -120,6 +120,30 @@ public class AppFutbol{
 	//+ void CalcularPosicionesEquipos(lequipos) **OPCIONAL**
 	
 	//Métodos
+	public int EquipoId(){
+		int id;
+		try{
+			System.out.println("Introduce la id del equipo");
+			id = in.nextInt();
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			id = EquipoId();
+		}
+		return id;
+	}
+	public int EquipoPuntos(){
+        int puntos;
+        try{
+        	System.out.println("Introduce los puntos del equipo");
+        	puntos = in.nextInt();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+			puntos = EquipoPuntos();
+        }
+        return puntos;
+    }
 	public int EstadioId(){
 		int id;
 		try{
@@ -157,6 +181,7 @@ public class AppFutbol{
 		return ciudad;
 	}
 	public int EstadioCapacidad(){
+
 		int capacidad;
 		try{
 			System.out.println("Introduce la capacidad del estadio:");
@@ -167,5 +192,240 @@ public class AppFutbol{
 			capacidad = EstadioCapacidad();
 		}
 		return capacidad;
+	}
+	public int PersonaId(){
+        int id;
+        try{
+        	System.out.println("Introduce la id de la persona");
+        	id = in.nextInt();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	id = PersonaId();
+        }
+        return id;
+    }
+	public String PersonaNombre(){
+        String nombre;
+        try{
+        	System.out.println("Introduce el nombre de la persona");
+        	nombre = in.next();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	nombre = PersonaNombre();
+        }
+        return nombre;
+    }
+	public String PersonaEmail(){
+        String email;
+        try{
+        	System.out.println("Introduce el email de la persona");
+        	email = in.next();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	email = PersonaEmail();
+        }
+        return email;
+    }
+	public String PersonaTlf(){
+
+        String tlf;
+        try{
+        	System.out.println("Introduce el tlf de la persona");
+        	tlf = in.next();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	tlf = PersonaTlf();
+        }
+        return tlf;
+    }
+	public int JugadorSalario(){
+        int salario;
+        try{
+        	System.out.println("Introduce el salario del jugador");
+        	salario = in.nextInt();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	salario = JugadorSalario();
+        }
+        return salario;
+    }
+	public String JugadorPosicion(){
+        int eleccion;
+        String posicion;
+        try{
+        	do{
+        		System.out.println("Introduce la posicion del jugador");
+        		System.out.println("1-Delantero, 2-Centrocampista, 3-Defensa, 4-Portero");
+        		eleccion = in.nextInt();
+        	}while(eleccion != 1 && eleccion != 2 && eleccion != 3 && eleccion != 4);
+        	posicion = JugadorEleccion(eleccion);
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	posicion = JugadorPosicion();
+        }
+        return posicion;
+    }
+	public Boolean JugadorTitular(){
+        Boolean titular,bucle;
+        String aux;
+        bucle = true;
+        titular = false;
+        try{
+        	do{
+        		System.out.println("Indica si el jugador es titular S/N");
+        		aux = in.next();
+        		if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+        			titular = true;
+        			bucle = false;
+        		}
+        		else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+        			titular = false;
+        			bucle = false;
+        		}
+        		else{
+        			System.out.println("Error");
+        		}
+        	}while(bucle);
+        }
+        catch(Exception e){
+           	System.out.println("Error");
+           	titular = JugadorTitular();
+        }
+        return titular;
+    }
+	public int JugadorNumero(){
+        int numero;
+        try{
+        	System.out.println("Introduce el numero del jugador");
+        	numero = in.nextInt();
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	numero = JugadorNumero();
+        }
+        return numero;
+    }
+	public String JugadorEleccion(int num){
+		String eleccion = "";
+		if(num == 1){
+			eleccion = "Delantero";
+		}
+		if(num == 2){
+			eleccion = "Centrocampista";
+		}
+		if(num == 3){
+			eleccion = "Defensa";
+		}
+		if(num == 4){
+			eleccion = "Portero";
+		}
+		return eleccion;
+	}
+	public String ArbitroTipo(){
+		int eleccion;
+        String tipo;
+        try{
+        	do{
+        		System.out.println("Introduce el tipo de arbitro");
+        		System.out.println("1-Principal, 2-Asistente, 3-Cuarto, 4-Area");
+        		eleccion = in.nextInt();
+        	}while(eleccion != 1 && eleccion != 2 && eleccion != 3 && eleccion != 4);
+        	tipo = ArbitroEleccion(eleccion);
+        }
+        catch(Exception e){
+        	System.out.println("Error");
+        	tipo = ArbitroTipo();
+        }
+        return tipo;
+	}
+	public String ArbitroEleccion(int num){
+		String eleccion = "";
+		if(num == 1){
+			eleccion = "Principal";
+		}
+		if(num == 2){
+			eleccion = "Asistente";
+		}
+		if(num == 3){
+			eleccion = "Cuarto";
+		}
+		if(num == 4){
+			eleccion = "Area";
+		}
+		return eleccion;
+	}
+	public int FechaAnio(){
+		int anio;
+		try{
+			System.out.println("Introduce el año del partido");
+			anio = in.nextInt();
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			anio = FechaAnio();
+		}
+		return anio;
+	}
+	public int FechaMes(){
+		int mes;
+		try{
+			do{
+				System.out.println("Introduce el mes del partido");
+				mes = in.nextInt();
+			}while(mes <= 0 || mes >= 13);
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			mes = FechaMes();
+		}
+		return mes-1;
+	}
+	public int FechaDia(){
+		int dia;
+		try{
+			do{
+				System.out.println("Introduce el día del partido");
+				dia = in.nextInt();
+			}while(dia <= 0 || dia >= 32);
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			dia = FechaDia();
+		}
+		return dia;
+	}
+	public int FechaHora(){
+		int hora;
+		try{
+			do{
+				System.out.println("Introduce la hora del partido");
+				hora = in.nextInt();
+			}while(hora < 0 || hora >=24 );
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			hora = FechaHora();
+		}
+		return hora;
+	}
+	public int FechaMinuto(){
+		int minuto;
+		try{
+			do{
+				System.out.println("Introduce el minuto del partido");
+				minuto = in.nextInt();
+			}while(minuto < 0 || minuto >=60 );
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			minuto = FechaMinuto();
+		}
+		return minuto;
 	}
 }

@@ -18,49 +18,49 @@ public class Estadio{
         
     }
     
-    public int EstadioId(){
-        int id;
-        
-        System.out.println("Introduce la id del estadio");
-        id = in.nextInt();
-        return id;
-    }
+    //public int EstadioId(){
+    //    int id;
+    //    
+    //    System.out.println("Introduce la id del estadio");
+    //    id = in.nextInt();
+    //    return id;
+    //}
     
     public int GetEstadioId(){
         return eidestadio;
     }
     
-    public String EstadioDireccion(){
-        String direccion;
-        
-        System.out.println("Introduce la dirección del estadio");
-        direccion = in.next();
-        return direccion;
-    }
+    //public String EstadioDireccion(){
+    //    String direccion;
+    //    
+    //    System.out.println("Introduce la dirección del estadio");
+    //    direccion = in.next();
+    //    return direccion;
+    //}
     
     public String GetEstadioDireccion(){
         return edireccion;
     }
     
-    public String EstadioCiudad(){
-        String ciudad;
-        
-        System.out.println("Introduce la ciudad del estadio");
-        ciudad = in.next();
-        return ciudad;
-    }
+    //public String EstadioCiudad(){
+    //  	String ciudad;
+    //    
+    //    System.out.println("Introduce la ciudad del estadio");
+    //    ciudad = in.next();
+    //    return ciudad;
+    //}
     
     public String GetEstadioCiudad(){
         return eciudad;
     }
     
-    public int EstadioCapacidad(){
-        int capacidad;
-        
-        System.out.println("Introduce la capacidad del estadio");
-        capacidad = in.nextInt();
-        return capacidad;
-    }
+    //public int EstadioCapacidad(){
+    //    int capacidad;
+    //    
+    //    System.out.println("Introduce la capacidad del estadio");
+    //    capacidad = in.nextInt();
+    //    return capacidad;
+    //}
     
     public int GetEstadioCapacidad(){
         return ecapacidad;

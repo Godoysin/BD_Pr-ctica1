@@ -53,25 +53,25 @@ public class Equipo{
         return jugador;
     }
     
-    public int EquipoId(){
-        int id;
-        
-        System.out.println("Introduce la id del equipo");
-        id = in.nextInt();
-        return id;
-    }
+    //public int EquipoId(){
+    //    int id;
+    //    
+    //    System.out.println("Introduce la id del equipo");
+    //    id = in.nextInt();
+    //    return id;
+    //}
     
     public int GetEquipoId(){
         return eidequipo;
     }
     
-    public int EquipoPuntos(){
-        int puntos;
-        
-        System.out.println("Introduce los puntos del equipo");
-        puntos = in.nextInt();
-        return puntos;
-    }
+    //public int EquipoPuntos(){
+    //    int puntos;
+    //    
+    //    System.out.println("Introduce los puntos del equipo");
+    //    puntos = in.nextInt();
+    //    return puntos;
+    //}
     
     public int GetEquipoPuntos(){
         return epuntos;
