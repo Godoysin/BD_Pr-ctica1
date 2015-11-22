@@ -83,7 +83,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta Albitro");
-                    //f.AltaArbitro();
+                    f.AltaArbitro();
                     
                     Espacio();
                     break;
@@ -144,7 +144,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Arbitros");
-                    //f.ListarArbitros();
+                    f.ListarArbitros();
                     
                     Espacio();
                     break;

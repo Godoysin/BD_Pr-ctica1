@@ -11,9 +11,9 @@ public class AppFutbol{
 	static Scanner in = new Scanner (System.in);
 	HashMap<Integer, Equipo> mEquipo = new HashMap<Integer, Equipo>(); //el integer será el idequipo
 	HashMap<Integer, Jugador> mJugador = new HashMap<Integer, Jugador>(); //Integer será idjugador
-	HashMap<Integer, Arbitro> mArbitro; // ..igual
+	HashMap<Integer, Arbitro> mArbitro = new HashMap<Integer, Arbitro>(); // ..igual
 	HashMap<Integer, Estadio> mEstadio = new HashMap<Integer, Estadio>(); //..igual
-	ArrayList<Partido> mpartidos;
+	ArrayList<Partido> mPartido = new ArrayList<Partido>();
 	
 	public AppFutbol(){//Aquí se pueden cargar los datos o en un nuevo método
 		
@@ -212,6 +212,7 @@ public class AppFutbol{
 			}
 		}
 	}
+	//Done
 	public void BajaJugador(){ // de un equipo, no del sistema
 		//Declaraciones
 		int i, id, borrar, ide;
@@ -296,24 +297,70 @@ public class AppFutbol{
 			}
 		}
 	}
+	//DONE
 	public void AltaArbitro(){
-		
-	}
-	public void BajaArbitro(){
-		
-	}
-	public void AltaEstadio(){ //del sistema
 		//Declaraciones
+		Arbitro arbitro;
+		Personas persona;
 		Object key;
 		Iterator<Integer> it;
-		int id, capacidad;
-		String ciudad, direccion;
+		int id;
+		String nombre, email, tlf, tipo;
 		Boolean bucle;
+		//Pido la id y busco que no esté repetida
+		do{
+			id = PersonaId();
+			bucle = false;
+			it = mArbitro.keySet().iterator();
+			while(it.hasNext()){
+				key = it.next();
+				if(mArbitro.get(key).GetPersonaId() == id){
+					System.out.println("Ya hay un arbitro con esa id");
+					bucle = true;
+				}
+			}
+		}while(bucle);
+		//Como no está repetido creo el nuevo Arbitro
+		nombre = PersonaNombre();
+		email = PersonaEmail();
+		tlf = PersonaTlf();
+		tipo = ArbitroTipo();
+		persona = new Personas(id, nombre, email, tlf);
+		arbitro = new Arbitro(persona, tipo);
+		mArbitro.put(id, arbitro);
+		//Caso de error
+		if(id == -1 || nombre.compareTo("-1") == 0 || email.compareTo("-1") == 0
+				|| tlf.compareTo("-1") == 0 || tipo.compareTo("-1") == 0){
+			System.out.println("Ha habido un error");
+			mArbitro.remove(id);
+		}
+	}
+	public void BajaArbitro(){
+		//Declaraciones
+		if(mArbitro.isEmpty()){
+			System.out.println("No hay arbitros en el sistema");
+		}
+		else{
+			
+		}
+	}
+	//DONE
+	public void AltaEstadio(){ //del sistema
+		//Declaraciones
+		Estadio estadio = null;
+		Object key;
+		Iterator<Integer> it;
+		int id, capacidad, id2;
+		String ciudad, direccion, aux;
+		Boolean bucle, error, mostrar;
 		if(mEquipo.isEmpty()){
 			System.out.println("No hay equipos en el sistema");
 		}
 		else{
 			//Pido la id y busco que la id no esté repetida
+			error = false;
+			mostrar = true;
+			id2 = 0;
 			do{
 				id = EstadioId();
 				bucle = false;
@@ -330,19 +377,84 @@ public class AppFutbol{
 			ciudad = EstadioCiudad();
 			direccion = EstadioDireccion();
 			capacidad = EstadioCapacidad();
-			Estadio estadio = new Estadio(id, direccion, ciudad, capacidad);
-			mEstadio.put(id, estadio);
-			//TODO añadirlo a un equipo
 			//Muestro los equipos
-			//Añado a uno de los equipos listados
+			if(id == -1 || ciudad.compareTo("-1") == 0 || direccion.compareTo("-1") == 0 
+					|| capacidad == -1){
+				error = true;
+			}
+			else{
+				//Creo el estadio
+				estadio = new Estadio(id, direccion, ciudad, capacidad);
+				//Doy la opcion de mostrar los equipos en los que meter al estadio
+				bucle = true;
+				try{
+					do{
+						System.out.println("¿Desea que se le muestren los equipos en el sistema? S/N");
+						aux = in.next();
+						if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+							mostrar = true;
+							bucle = false;
+						}
+						else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+							mostrar = false;
+							bucle = false;
+						}
+						else{
+							System.out.println("Error");
+						}
+					}while(bucle);
+				}
+				catch(Exception e){
+					System.out.println("Error");
+					error = true;
+				}
+			}
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Muestro los equipos
+				if(mostrar){
+					ListarEquipos();
+				}
+				//Meto al estadio en la base de datos y en un equipo
+				mEstadio.put(id, estadio);
+				//Pido que meta al jugador en un equipo
+				bucle = true;
+				do{
+					System.out.println("Introduzca al estadio en un equipo");
+					id2 = EquipoId();
+					if(id2 == -1){
+						bucle = false;
+					}
+					//Lo añado a un equipo
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).GetEquipoId() == id2){
+							mEquipo.get(key).AltaEstadio(estadio);
+							bucle = false;
+						}
+					}
+				}while(bucle);
+			}
+			if(id2 == -1){
+				System.out.println("Ha habido un error");
+			}
 		}
 	}
 	public void AltaPartido(){
-		
+		//Declaraciones
+		//TODO tiene que haber al menos 2 equipos con jugadores y estadios para esto
 	}
 	public void BajaPartido(){
-
-		
+		//Declaraciones
+		if(mPartido.isEmpty()){
+			System.out.println("No hay partidos en el sistema");
+		}
+		else{
+			
+		}
 	}
 	//DONE
 	public void ListarEquipos(){
@@ -374,8 +486,22 @@ public class AppFutbol{
 			}
 		}
 	}
+	//DONE
 	public void ListarArbitros(){
-		
+		if(mArbitro.isEmpty()){
+			System.out.println("No hay arbitros en el sistema");
+		}
+		else{
+			System.out.println("Los arbitros son:");
+			for (Entry<Integer, Arbitro> arbitro : mArbitro.entrySet()){
+				Arbitro valor = arbitro.getValue();
+				System.out.print("El arbitro con id: " + valor.GetPersonaId());
+				System.out.print(", de nombre: " + valor.GetPersonaNombre());
+				System.out.print(", con email: " + valor.GetPersonaEmail());
+				System.out.print(", con tlf: " + valor.GetPersonaTlf());
+				System.out.println(" es: " + valor.GetArbitroTipo());
+			}
+		}
 	}
 	public void ContarPartidos(){
 		
