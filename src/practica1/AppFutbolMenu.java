@@ -101,7 +101,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta estadio");
-                    //f.AltaEstadio();
+                    f.AltaEstadio();
                     
                     Espacio();
                     break;
@@ -135,7 +135,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Estadios");
-                    //f.ListarEstadios();
+                    f.ListarEstadios();
                     
                     Espacio();
                     break;

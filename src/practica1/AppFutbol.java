@@ -2,6 +2,8 @@ package practica1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class AppFutbol{
@@ -9,8 +11,8 @@ public class AppFutbol{
 	static Scanner in = new Scanner (System.in);
 	HashMap<Integer, Equipo> mEquipo; //el integer será el idequipo
 	HashMap<Integer, Jugador> mJugadore; //Integer será idjugador
-	HashMap<Integer, Arbitro> mArbitros; // ..igual
-	HashMap<Integer, Estadio> mEstadios = new HashMap<Integer, Estadio>(); //..igual
+	HashMap<Integer, Arbitro> mArbitro; // ..igual
+	HashMap<Integer, Estadio> mEstadio = new HashMap<Integer, Estadio>(); //..igual
 	ArrayList<Partido> mpartidos;
 	
 	public AppFutbol(){//Aquí se pueden cargar los datos o en un nuevo método
@@ -35,16 +37,57 @@ public class AppFutbol{
 		
 	}
 	public void AltaEstadio(){ //del sistema
-		
+		//Declaraciones
+		Object key;
+		Iterator<Integer> it;
+		int id, capacidad;
+		String ciudad, direccion;
+		Boolean bucle;
+		//Pido la id y busco que la id no esté repetida
+		do{
+			id = EstadioId();
+			bucle = false;
+			it = mEstadio.keySet().iterator();
+			while(it.hasNext()){
+				key = it.next();
+				if(mEstadio.get(key).GetEstadioId() == id){
+					System.out.println("Ya hay un equipo con esa id");
+					bucle = true;
+				}
+			}
+		}while(bucle);
+		//Como no está repetido creo el nuevo Equipo
+		ciudad = EstadioCiudad();
+		direccion = EstadioDireccion();
+		capacidad = EstadioCapacidad();
+		Estadio estadio = new Estadio(id, direccion, ciudad, capacidad);
+		mEstadio.put(id, estadio);
+		//TODO añadirlo a un equipo
+		//Muestro los equipos
+		//Añado a uno de los equipos listados
 	}
 	public void AltaPartido(){
 		
 	}
 	public void BajaPartido(){
+
 		
 	}
+	//DONE
 	public void ListarEstadios(){
-		
+		if(mEstadio.isEmpty()){
+			System.out.println("No hay estadios en el sistema");
+		}
+		else{
+			System.out.println("Los estadios son:");
+			for (Entry<Integer, Estadio> estadio : mEstadio.entrySet()){
+				Estadio valor = estadio.getValue();
+				System.out.print("El estadio con id: " + valor.GetEstadioId());
+				System.out.print(" que está en la ciudad de: " + valor.GetEstadioCiudad());
+				System.out.print(" en la calle: " + valor.GetEstadioDireccion());
+				System.out.println(" y con capacidad para :" + valor.GetEstadioCapacidad());
+			}
+		}
 	}
 	public void ListarEquipos(){
 		
