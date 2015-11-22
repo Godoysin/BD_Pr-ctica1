@@ -335,13 +335,66 @@ public class AppFutbol{
 			mArbitro.remove(id);
 		}
 	}
+	//DONE
 	public void BajaArbitro(){
 		//Declaraciones
+		Boolean bucle, mostrar, error;
+		String aux;
+		int id, borrar;
+		Iterator<Integer> it;
+		Object key;
+		borrar = 0;
 		if(mArbitro.isEmpty()){
 			System.out.println("No hay arbitros en el sistema");
 		}
 		else{
-			
+			//Doy la opción de que se le muestren los equipos que hay para que elija uno
+			bucle = mostrar = true;
+			error = false;
+			try{
+				do{
+					System.out.println("¿Desea que se le muestren los arbitros en el sistema? S/N");
+					aux = in.next();
+					if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+						mostrar = true;
+						bucle = false;
+					}
+					else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+						mostrar = false;
+						bucle = false;
+					}
+					else{
+						System.out.println("Error");
+					}
+				}while(bucle);
+			}
+			catch(Exception e){
+				System.out.println("Error");
+				error = true;
+			}
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Si quiere verlos
+				if(mostrar){
+					ListarArbitros();
+				}
+				//Borro el equipo por id
+				bucle = true;
+				do{
+					id = PersonaId();
+					it = mArbitro.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mArbitro.get(key).GetPersonaId() == id){
+							bucle = false;
+							borrar = id;
+						}
+					}
+				}while(bucle);
+				mArbitro.remove(borrar);
+			}
 		}
 	}
 	//DONE
@@ -449,16 +502,16 @@ public class AppFutbol{
 		ArrayList<Arbitro> arbitro = new ArrayList<Arbitro>();
 		ArrayList<Jugador> jugador1, jugador2;
 		Equipo equipo1, equipo2;
-		Boolean bucle, ida, aniadir;
+		Boolean bucle, ida, aniadir, repetido;
 		String aux;
-		int ocurrencias, id, i, idequipo, idestadio, golesEq1, golesEq2, idarbitro;
+		int ocurrencias, id, i, idequipo, idestadio, golesEq1, golesEq2, idarbitro, anio, mes, dia, hora, minuto;
 		Iterator<Integer> it;
 		Object key;
 		estadio = null;
 		equipo1 = equipo2 = null;
-		ocurrencias = 0;
-		aniadir = true;
-		//TODO tiene que haber al menos 2 equipos con jugadores y estadios para esto
+		ocurrencias = id = golesEq1 = golesEq2 = 0;
+		aniadir = ida = true;
+		jugador1 = jugador2 = null;
 		//Tengo equipos
 		if(mEquipo.isEmpty()){
 			System.out.println("No hay equipos en el sistema");
@@ -546,7 +599,9 @@ public class AppFutbol{
 								}
 							}
 						}while(bucle);
+						System.out.println("Equipo 1");
 						golesEq1 = PartidoGoles();
+						System.out.println("Equipo 2");
 						golesEq2 = PartidoGoles();
 						ida = PartidoIda();
 						//Añado un árbitro
@@ -589,8 +644,15 @@ public class AppFutbol{
 									while(it.hasNext()){
 										key = it.next();
 										if(mArbitro.get(key).GetPersonaId() == idarbitro){
-											for(i = 0; i < ){
-												arbitro.add(mArbitro.get(key));
+											repetido = false;
+											for(i = 0; i < arbitro.size(); i++){
+												if(arbitro.get(i).GetPersonaId() == idarbitro){
+													System.out.println("Ese árbitro ya está en el partido");
+													repetido = true;
+												}
+												if(repetido == false){
+													arbitro.add(mArbitro.get(key));
+												}
 												bucle = false;
 											}
 										}
@@ -598,19 +660,77 @@ public class AppFutbol{
 								}while(bucle);
 							}
 						}while(aniadir);
-						
 					}
+					//Introduzco la fecha
+					System.out.println("Introduzca la fecha del partido");
+					anio = FechaAnio();
+					mes = FechaMes();
+					dia = FechaDia();
+					hora = FechaHora();
+					minuto = FechaMinuto();
+					Fecha fecha = new Fecha(anio, mes, dia, hora, minuto);
+					Partido partido = new Partido(id, estadio, fecha, equipo1, equipo2, ida,
+							arbitro, jugador1, jugador2, golesEq1, golesEq2);
+					mPartido.add(partido);
 				}
 			}
 		}
 	}
 	public void BajaPartido(){
 		//Declaraciones
+		Boolean bucle, mostrar, error;
+		String aux;
+		int id, i, borrar;
 		if(mPartido.isEmpty()){
 			System.out.println("No hay partidos en el sistema");
 		}
 		else{
-			
+			//Doy la opción de que se le muestren los equipos que hay para que elija uno
+			bucle = mostrar = true;
+			error = false;
+			borrar = 0;
+			try{
+				do{
+					System.out.println("¿Desea que se le muestren los partidos en el sistema? S/N");
+					aux = in.next();
+					if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+						mostrar = true;
+						bucle = false;
+					}
+					else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+						mostrar = false;
+						bucle = false;
+					}
+					else{
+						System.out.println("Error");
+					}
+				}while(bucle);
+			}
+			catch(Exception e){
+				System.out.println("Error");
+				error = true;
+			}
+			if(error){
+				System.out.println("Ha habido un error");
+			}
+			else{
+				//Si quiere verlos
+				if(mostrar){
+					ListarPartidos();
+				}
+				//Borro el equipo por id
+				bucle = true;
+				do{
+					id = PartidoId();
+					for(i = 0; i < mPartido.size(); i++){
+						if(mPartido.get(i).GetPartidoId() == id){
+							bucle = false;
+							borrar = id;
+						}
+					}
+				}while(bucle);
+				mPartido.remove(borrar);
+			}
 		}
 	}
 	//DONE
@@ -661,13 +781,76 @@ public class AppFutbol{
 		}
 	}
 	public void ContarPartidos(){
-		
+		//Declaraciones
+		if(mPartido.isEmpty()){
+			System.out.println("No hay partidos en el sistema");
+		}
+		else{
+			System.out.println("Hay " + mPartido.size() + " partidos");
+		}
 	}
 	public void ListarPartidos(){ //devuelve info del partido dada una fecha
-		
+		//Declaraciones
+		int anio, mes, dia, i;
+		if(mPartido.isEmpty()){
+			System.out.println("No hay partidos en el sistema");
+		}
+		else{
+			System.out.println("Selecciona el día del que mirar los partidos");
+			anio = FechaAnio();
+			mes = FechaMes();
+			dia = FechaDia();
+			for(i = 0; i < mPartido.size(); i++){
+				if(mPartido.get(i).GetPartidoFecha().GetFechaAnio() == anio 
+						&& mPartido.get(i).GetPartidoFecha().GetFechaMes() == mes
+						&& mPartido.get(i).GetPartidoFecha().GetFechaDia() == dia){
+					System.out.print("El partido con id: " + mPartido.get(i).GetPartidoId());
+					System.out.print(", en el que juegan los equipos con id: " + mPartido.get(i).GetPartidoEquipo1().GetEquipoId());
+					System.out.print(" y " + mPartido.get(i).GetPartidoEquipo2().GetEquipoId());
+					System.out.print(" se jugó ");
+					mPartido.get(i).GetPartidoFecha().GetFecha();
+				}
+			}
+		}
 	}
 	public void ListarPartidosEquipo(){//Devuelve la info del partido dado un equipo
-		
+		//Declaraciones
+		int id, i;
+		Equipo equipo;
+		Boolean bucle;
+		Iterator<Integer> it;
+		Object key;
+		equipo = null;
+		if(mPartido.isEmpty()){
+			System.out.println("No hay partidos en el sistema");
+		}
+		else{
+			do{
+				bucle = true;
+				id = EquipoId();
+				it = mEquipo.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					if(mEquipo.get(key).GetEquipoId() == id){
+						equipo = mEquipo.get(key);
+						bucle = false;
+					}
+				}
+			}while(bucle);
+			for(i = 0; i < mPartido.size(); i++){
+				if(mPartido.get(i).GetPartidoEquipo1() == equipo
+						|| mPartido.get(i).GetPartidoEquipo2() == equipo){
+					System.out.print("El equipo con id: " + equipo.GetEquipoId());
+					System.out.print(", juega el partido con id: " + mPartido.get(i).GetPartidoId());
+					if(mPartido.get(i).GetPartidoEquipo1() == equipo){
+						System.out.println(", marcó " + mPartido.get(i).GetPartidoGolesEq1() + " goles");
+					}
+					else{
+						System.out.println(", marcó " + mPartido.get(i).GetPartidoGolesEq2() + " goles");
+					}
+				}
+			}
+		}
 	}
 	//DONE
 	public void ListarJugadores(){//dada una posición en el campo
@@ -764,8 +947,8 @@ public class AppFutbol{
 	public void CargarDatos(){
 		
 	}
-	//+ void CalcularCampeonTemporada() **OPCIONAL**
-	//+ void CalcularPosicionesEquipos(lequipos) **OPCIONAL**
+	//public void CalcularCampeonTemporada(){ **OPCIONAL**
+	//public void CalcularPosicionesEquipos(){ **OPCIONAL**
 	
 	//Métodos
 	public int EquipoId(){

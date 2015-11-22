@@ -92,7 +92,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Albitro");
-                    //f.BajaArbitro();
+                    f.BajaArbitro();
                     
                     Espacio();
                     break;
@@ -110,6 +110,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta Partido");
+                    f.AltaPartido();
                     
                     Espacio();
                     break;
@@ -118,6 +119,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Partido");
+                    f.BajaPartido();
                     
                     Espacio();
                     break;
@@ -153,7 +155,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Devolver Total Partidos");
-                    //f.ContarPartidos();
+                    f.ContarPartidos();
                     
                     Espacio();
                     break;
@@ -162,6 +164,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Información de Partidos dada una fecha");
+                    f.ListarPartidos();
                     
                     Espacio();
                     break;
@@ -170,6 +173,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar los Partidos hechos por un equipo");
+                    f.ListarPartidosEquipo();
                     
                     Espacio();
                     break;

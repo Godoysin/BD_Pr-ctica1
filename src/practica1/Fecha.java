@@ -19,9 +19,17 @@ public class Fecha{
         this.fhora = hora;
         this.fminuto = minuto;
     }
-    
     public void GetFecha(){
         ffecha.set(fanio, fmes, fdia, fhora, fminuto);
         System.out.println(fformat.format(ffecha.getTime()));
+    }
+    public int GetFechaAnio(){
+    	return fanio;
+    }
+    public int GetFechaMes(){
+    	return fmes;
+    }
+    public int GetFechaDia(){
+    	return fdia;
     }
 }
