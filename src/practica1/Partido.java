@@ -31,7 +31,7 @@ public class Partido{
         this.pgolesEq2 = golesEq2;
     }
     
-    public void altaArbitro(Arbitro arbitro){
+    public void AltaArbitro(Arbitro arbitro){
         parbitro.add(arbitro);
     }
     

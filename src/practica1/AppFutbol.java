@@ -445,7 +445,152 @@ public class AppFutbol{
 	}
 	public void AltaPartido(){
 		//Declaraciones
+		Estadio estadio;
+		ArrayList<Jugador> jugador1, jugador2;
+		Equipo equipo1, equipo2;
+		Boolean bucle, ida, aniadir;
+		String aux;
+		int ocurrencias, id, i, idequipo, idestadio, golesEq1, golesEq2, idarbitro;
+		Iterator<Integer> it;
+		Object key;
+		estadio = null;
+		equipo1 = equipo2 = null;
+		ocurrencias = 0;
+		aniadir = true;
 		//TODO tiene que haber al menos 2 equipos con jugadores y estadios para esto
+		//Tengo equipos
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Tengo estadios
+			if(mEstadio.isEmpty()){
+				System.out.println("No hay estadios en el sistema");
+			}
+			else{
+				//Tengo arbitros
+				if(mArbitro.isEmpty()){
+					System.out.println("No hay arbitros en el sistema");
+				}
+				else{
+					it = mEquipo.keySet().iterator();
+					while(it.hasNext()){
+						key = it.next();
+						if(mEquipo.get(key).ejugador.isEmpty() == false){
+							ocurrencias++;
+						}
+					}
+					//Tengo dos o más equipos con jugadores
+					if(ocurrencias >= 2){
+						//Compruebo que no se repita la id del partido
+						do{
+							bucle = false;
+							id = PartidoId();
+							for(i = 0; i < mPartido.size(); i++){
+								if(mPartido.get(i).GetPartidoId() == id){
+									System.out.println("Ya hay un partido con esa id");
+									bucle = true;
+								}
+							}
+						}while(bucle);
+						//Añado los equipos
+						it = mEquipo.keySet().iterator();
+						while(it.hasNext()){
+							key = it.next();
+							if(mEquipo.get(key).ejugador.isEmpty() == false){
+								System.out.println("El equipo con id: " + mEquipo.get(key).GetEquipoId()
+										+ " tiene jugadores");
+							}
+						}
+						do{
+							bucle = true;
+							System.out.println("Introduzca el primer equipo que juega el partido");
+							idequipo = EquipoId();
+							it = mEquipo.keySet().iterator();
+							while(it.hasNext()){
+								key = it.next();
+								if(mEquipo.get(key).ejugador.isEmpty() == false && mEquipo.get(key).GetEquipoId() == idequipo){
+									equipo1 = mEquipo.get(key);
+									bucle = false;
+								}
+							}
+						}while(bucle);
+						do{
+							bucle = true;
+							System.out.println("Introduzca el segundo equipo que juega el partido");
+							idequipo = EquipoId();
+							it = mEquipo.keySet().iterator();
+							while(it.hasNext()){
+								key = it.next();
+								if(mEquipo.get(key).ejugador.isEmpty() == false && mEquipo.get(key).GetEquipoId() == idequipo 
+										&& mEquipo.get(key) != equipo1){
+									equipo2 = mEquipo.get(key);
+									bucle = false;
+								}
+							}
+						}while(bucle);
+						jugador1 = equipo1.ejugador;
+						jugador2 = equipo2.ejugador;
+						ListarPartidos();
+						do{
+							bucle = true;
+							System.out.println("Introduzca el estadio donde se juega el partido");
+							idestadio = EstadioId();
+							it = mEstadio.keySet().iterator();
+							while(it.hasNext()){
+								key = it.next();
+								if(mEstadio.get(key).GetEstadioId() == idestadio){
+									bucle = false;
+									estadio = mEstadio.get(key);
+								}
+							}
+						}while(bucle);
+						golesEq1 = PartidoGoles();
+						golesEq2 = PartidoGoles();
+						ida = PartidoIda();
+						//Añado un árbitro
+						ListarArbitros();
+						idarbitro = PersonaId();
+						it = mArbitro.keySet().iterator();
+						do{
+							
+							while(it.hasNext()){
+								key = it.next();
+								if(mArbitro.get(key).GetPersonaId() == idarbitro){
+									bucle = false;
+								}
+							}
+						}while(bucle);
+						do{
+							try{
+								do{
+									System.out.println("¿Quieres añadir otro árbitro? S/N");
+									aux = in.next();
+									if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+										aniadir = true;
+										bucle = false;
+									}
+									else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+										aniadir = false;
+										bucle = false;
+									}
+									else{
+										System.out.println("Error");
+									}
+								}while(bucle);
+								if(aniadir){
+									idarbitro = PersonaId();
+								}
+							}
+					    	catch(Exception e){
+					    		System.out.println("Error");
+					           	aniadir = false;
+					        }
+						}while(aniadir);
+					}
+				}
+			}
+		}
 	}
 	public void BajaPartido(){
 		//Declaraciones
@@ -855,6 +1000,58 @@ public class AppFutbol{
 			eleccion = "Area";
 		}
 		return eleccion;
+	}
+	public int PartidoId(){
+		int id = 1;
+		try{
+			System.out.println("Introduce la id del partido");
+			id = in.nextInt();
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			id = -1;
+		}
+		return id;
+	}
+	public Boolean PartidoIda(){
+		Boolean ida,bucle;
+        String aux;
+        bucle = true;
+        ida = false;
+        try{
+        	do{
+        		System.out.println("Indica si el partido es de ida S/N");
+        		aux = in.next();
+        		if(aux.compareTo("S") == 0 || aux.compareTo("s") == 0){
+        			ida = true;
+        			bucle = false;
+        		}
+        		else if(aux.compareTo("N") == 0 || aux.compareTo("n") == 0){
+        			ida = false;
+        			bucle = false;
+        		}
+        		else{
+        			System.out.println("Error");
+        		}
+        	}while(bucle);
+        }
+        catch(Exception e){
+           	System.out.println("Error");
+           	ida = false;
+        }
+        return ida;
+	}
+	public int PartidoGoles(){
+		int goles = 1;
+		try{
+			System.out.println("Introduce los goles del equipo");
+			goles = in.nextInt();
+		}
+		catch(Exception e){
+			System.out.println("Error");
+			goles = -1;
+		}
+		return goles;
 	}
 	public int FechaAnio(){
 		int anio;
