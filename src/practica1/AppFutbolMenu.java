@@ -47,7 +47,7 @@ public class AppFutbolMenu {
                     Espacio();
                             
                     System.out.println("Ha seleccionado: Alta Equipo");
-                    f.AltaEquipo();
+                    //f.AltaEquipo();
                     
                     Espacio();
                     break;
@@ -56,7 +56,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Equipo");
-                    f.BajaEquipo();
+                    //f.BajaEquipo();
                     
                     Espacio();
                     break;
@@ -65,7 +65,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta Jugador");
-                    f.AltaJugador();
+                    //f.AltaJugador();
                     
                     Espacio();
                     break;
@@ -74,7 +74,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Jugador");
-                    f.BajaJugador();
+                    //f.BajaJugador();
                     
                     Espacio();
                     break;
@@ -83,7 +83,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta Albitro");
-                    f.AltaArbitro();
+                    //f.AltaArbitro();
                     
                     Espacio();
                     break;
@@ -92,7 +92,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Albitro");
-                    f.BajaArbitro();
+                    //f.BajaArbitro();
                     
                     Espacio();
                     break;
@@ -101,7 +101,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Alta estadio");
-                    f.AltaEstadio();
+                    //f.AltaEstadio();
                     
                     Espacio();
                     break;
@@ -126,7 +126,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Partidos");
-                    f.ListarEquipos();
+                    //f.ListarEquipos();
                     
                     Espacio();
                     break;
@@ -135,7 +135,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Estadios");
-                    f.ListarEstadios();
+                    //f.ListarEstadios();
                     
                     Espacio();
                     break;
@@ -144,7 +144,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar Arbitros");
-                    f.ListarArbitros();
+                    //f.ListarArbitros();
                     
                     Espacio();
                     break;
@@ -153,7 +153,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Devolver Total Partidos");
-                    f.ContarPartidos();
+                    //f.ContarPartidos();
                     
                     Espacio();
                     break;
@@ -186,7 +186,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Listar los jugadores de un equipo y sus posiciones");
-                    f.ListarJugadoresEquipo();
+                    //f.ListarJugadoresEquipo();
                     
                     Espacio();
                     break;
