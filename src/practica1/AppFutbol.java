@@ -213,7 +213,12 @@ public class AppFutbol{
 		}
 	}
 	public void BajaJugador(){ // de un equipo, no del sistema
-		
+		if(mJugador.isEmpty()){
+			System.out.println("No hay jugadores en el sistema");
+		}
+		else{
+			
+		}
 	}
 	public void AltaArbitro(){
 		
@@ -228,28 +233,33 @@ public class AppFutbol{
 		int id, capacidad;
 		String ciudad, direccion;
 		Boolean bucle;
-		//Pido la id y busco que la id no esté repetida
-		do{
-			id = EstadioId();
-			bucle = false;
-			it = mEstadio.keySet().iterator();
-			while(it.hasNext()){
-				key = it.next();
-				if(mEstadio.get(key).GetEstadioId() == id){
-					System.out.println("Ya hay un estadio con esa id");
-					bucle = true;
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Pido la id y busco que la id no esté repetida
+			do{
+				id = EstadioId();
+				bucle = false;
+				it = mEstadio.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					if(mEstadio.get(key).GetEstadioId() == id){
+						System.out.println("Ya hay un estadio con esa id");
+						bucle = true;
+					}
 				}
-			}
-		}while(bucle);
-		//Como no está repetido creo el nuevo Equipo
-		ciudad = EstadioCiudad();
-		direccion = EstadioDireccion();
-		capacidad = EstadioCapacidad();
-		Estadio estadio = new Estadio(id, direccion, ciudad, capacidad);
-		mEstadio.put(id, estadio);
-		//TODO añadirlo a un equipo
-		//Muestro los equipos
-		//Añado a uno de los equipos listados
+			}while(bucle);
+			//Como no está repetido creo el nuevo Equipo
+			ciudad = EstadioCiudad();
+			direccion = EstadioDireccion();
+			capacidad = EstadioCapacidad();
+			Estadio estadio = new Estadio(id, direccion, ciudad, capacidad);
+			mEstadio.put(id, estadio);
+			//TODO añadirlo a un equipo
+			//Muestro los equipos
+			//Añado a uno de los equipos listados
+		}
 	}
 	public void AltaPartido(){
 		
