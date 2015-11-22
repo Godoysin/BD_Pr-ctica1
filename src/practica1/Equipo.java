@@ -11,7 +11,7 @@ public class Equipo{
     private int epuntos; //posición que está en la liga
     public ArrayList<Jugador> ejugador = new ArrayList<Jugador>();
     
-    public void Equipo(int idequipo, int puntos){
+    public Equipo(int idequipo, int puntos){
         this.eidequipo = idequipo;
         this.epuntos = puntos;
     }

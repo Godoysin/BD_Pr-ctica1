@@ -38,7 +38,7 @@ public class AppFutbolMenu {
             System.out.println("21 .- Calcular posiciones");
             System.out.println("22 .- Salir");
             Espacio();
-            System.out.println("Seleccione una opci贸n");
+            System.out.println("Seleccione una opci髇");
             eleccion = in.nextInt();
             
             switch(eleccion){
@@ -47,7 +47,7 @@ public class AppFutbolMenu {
                     Espacio();
                             
                     System.out.println("Ha seleccionado: Alta Equipo");
-                    //f.AltaEquipo();
+                    f.AltaEquipo();
                     
                     Espacio();
                     break;
@@ -56,7 +56,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Baja Equipo");
-                    //f.BajaEquipo();
+                    f.BajaEquipo();
                     
                     Espacio();
                     break;
@@ -125,8 +125,8 @@ public class AppFutbolMenu {
                 case 10:
                     Espacio();
                     
-                    System.out.println("Ha seleccionado: Listar Partidos");
-                    //f.ListarEquipos();
+                    System.out.println("Ha seleccionado: Listar Equipos");
+                    f.ListarEquipos();
                     
                     Espacio();
                     break;
@@ -161,7 +161,7 @@ public class AppFutbolMenu {
                 case 14:
                     Espacio();
                     
-                    System.out.println("Ha seleccionado: Listar Informaci贸n de Partidos dada una fecha");
+                    System.out.println("Ha seleccionado: Listar Informaci髇 de Partidos dada una fecha");
                     
                     Espacio();
                     break;
@@ -177,7 +177,7 @@ public class AppFutbolMenu {
                 case 16:
                     Espacio();
                     
-                    System.out.println("Ha seleccionado: Listar los jugadores que hay en una posici贸n");
+                    System.out.println("Ha seleccionado: Listar los jugadores que hay en una posici髇");
                     
                     Espacio();
                     break;
@@ -210,7 +210,7 @@ public class AppFutbolMenu {
                 case 20:
                     Espacio();
                     
-                    System.out.println("Ha seleccionado: Calcular el campe贸n");
+                    System.out.println("Ha seleccionado: Calcular el campe髇");
                     
                     Espacio();
                     break;
@@ -235,7 +235,7 @@ public class AppFutbolMenu {
                 default:
                     Espacio();
                     
-                    System.out.println("Opci贸n no v谩lida");
+                    System.out.println("Opci髇 no v醠ida");
                     
                     Espacio();
                     break;
