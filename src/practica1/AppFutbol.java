@@ -1024,10 +1024,23 @@ public class AppFutbol{
 			bwEst.close();
 			//Salvo los arbitros
 			BufferedWriter bwArb = new BufferedWriter(new FileWriter("Arbitro.txt"));
-			it = mArbitro.keySet().iterator();
-			while(it.hasNext()){
-				key = it.next();
+			if(mArbitro.isEmpty() == false){
+				it = mArbitro.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					bwArb.write(mArbitro.get(key).GetArbitroTipo());
+					bwArb.newLine();
+					bwArb.write(String.valueOf(mArbitro.get(key).GetPersonaId()));
+					bwArb.newLine();
+					bwArb.write(mArbitro.get(key).GetPersonaNombre());
+					bwArb.newLine();
+					bwArb.write(mArbitro.get(key).GetPersonaEmail());
+					bwArb.newLine();
+					bwArb.write(mArbitro.get(key).GetPersonaTlf());
+					bwArb.newLine();
+				}
 			}
+			bwArb.close();
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");
@@ -1036,10 +1049,11 @@ public class AppFutbol{
 	public void CargarDatos(){
 		//Declaraciones
 		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, aux;
-		String direccion, ciudad, nombre, email, tlf, posicion;
+		String direccion, ciudad, nombre, email, tlf, posicion, tipo;
 		Boolean titular;
 		Equipo equipo;
 		Estadio estadio;
+		Arbitro arbitro;
 		Jugador jugador;
 		Personas persona;
 		estadio = null;
@@ -1104,6 +1118,21 @@ public class AppFutbol{
 				}
 			}
 			brEst.close();
+			//Cargo los árbitros
+			BufferedReader brArb = new BufferedReader(new FileReader("Arbitros.txt"));
+			if(mArbitro.isEmpty()){
+				while((linea = brArb.readLine()) != null){
+					tipo = linea;
+					id = Integer.parseInt(brArb.readLine());
+					nombre = brArb.readLine();
+					email = brArb.readLine();
+					tlf = brArb.readLine();
+					persona = new Personas(id, nombre, email, tlf);
+					arbitro = new Arbitro(persona, tipo);
+					mArbitro.put(id, arbitro);
+				}
+			}
+			brArb.close();
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");
