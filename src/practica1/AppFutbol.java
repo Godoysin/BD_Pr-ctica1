@@ -944,7 +944,7 @@ public class AppFutbol{
 	}
 	public void Salvar(){
 		//Declaraciones
-		int i;
+		int i, j;
 		Iterator<Integer> it;
 		Object key;
 		try{
@@ -1000,7 +1000,6 @@ public class AppFutbol{
 							bwEq.newLine();
 						}
 					}
-					
 				}
 			}
 			bwEq.close();
@@ -1066,6 +1065,81 @@ public class AppFutbol{
 				}
 			}
 			bwArb.close();
+			//Guardo los partidos
+			BufferedWriter bwPar = new BufferedWriter(new FileWriter("Partidos.txt"));
+			if(mPartido.isEmpty() == false){
+				for(i = 0; i < mPartido.size(); i++){
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoId()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetParidoEstadio().GetEstadioId()));
+					bwPar.newLine();
+					bwPar.write(mPartido.get(i).GetParidoEstadio().GetEstadioDireccion());
+					bwPar.newLine();
+					bwPar.write(mPartido.get(i).GetParidoEstadio().GetEstadioCiudad());
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetParidoEstadio().GetEstadioCapacidad()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaAnio()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaMes()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaDia()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaHora()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaMinuto()));
+					bwPar.newLine();
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoId()));
+					bwPar.newLine();
+					if(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio() == null){
+						bwPar.write("0");
+						bwPar.newLine();
+					}
+					else{
+						bwPar.write("1");
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio().GetEstadioId()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio().GetEstadioDireccion());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio().GetEstadioCiudad());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio().GetEstadioCapacidad()));
+						bwPar.newLine();
+					}
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoPuntos()));
+					bwPar.newLine();
+					if(mPartido.get(i).GetPartidoEquipo1().ejugador.isEmpty()){
+						bwPar.write("0");
+						bwPar.newLine();
+					}
+					else{
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.size()));
+						bwPar.newLine();
+						for(j = 0; j < mPartido.get(i).GetPartidoEquipo1().ejugador.size(); j++){
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaId()));
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaNombre());
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaEmail());
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaTlf());
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorSalario()));
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorPosicion());
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorTitular()));
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorNumero()));
+							bwPar.newLine();
+						}
+					}
+					//Equipo2
+					
+				}
+			}
+			bwPar.close();
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");
@@ -1073,7 +1147,7 @@ public class AppFutbol{
 	}
 	public void CargarDatos(){
 		//Declaraciones
-		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, aux;
+		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, idpartido, aux;
 		String direccion, ciudad, nombre, email, tlf, posicion, tipo;
 		Boolean titular;
 		Equipo equipo;
@@ -1176,6 +1250,11 @@ public class AppFutbol{
 				}
 			}
 			brArb.close();
+			//Cargo los Partidos
+			BufferedReader brPar = new BufferedReader(new FileReader("Partidos.txt"));
+			if(mPartido.isEmpty()){
+				
+			}
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");

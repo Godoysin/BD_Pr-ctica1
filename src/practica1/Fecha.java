@@ -32,4 +32,10 @@ public class Fecha{
     public int GetFechaDia(){
     	return fdia;
     }
+    public int GetFechaHora(){
+    	return fhora;
+    }
+    public int GetFechaMinuto(){
+    	return fminuto;
+    }
 }
