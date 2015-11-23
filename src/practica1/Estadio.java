@@ -17,6 +17,13 @@ public class Estadio{
         this.ecapacidad = capacidad;
         
     }
+    public Estadio(Estadio estadio){
+        this.eidestadio = estadio.GetEstadioId();
+        this.edireccion = estadio.GetEstadioDireccion();
+        this.eciudad = estadio.GetEstadioCiudad();
+        this.ecapacidad = estadio.GetEstadioCapacidad();
+        
+    }
     
     //public int EstadioId(){
     //    int id;

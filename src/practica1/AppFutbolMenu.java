@@ -200,6 +200,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Cargar sistema");
+                    f.CargarDatos();
                     
                     Espacio();
                     break;
@@ -208,6 +209,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Salvar los datos");
+                    f.Salvar();
                     
                     Espacio();
                     break;

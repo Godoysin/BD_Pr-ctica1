@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.io.*;	
 
 public class AppFutbol{
 	
@@ -942,10 +943,58 @@ public class AppFutbol{
 		}
 	}
 	public void Salvar(){
-		
+		//Declaraciones
+		Iterator<Integer> it;
+		Object key;
+		try{
+			BufferedWriter bwEst = new BufferedWriter(new FileWriter("Estadio.txt"));
+			//Salvo los estadios
+			if(mEstadio.isEmpty() == false){
+				it = mEstadio.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					bwEst.write(String.valueOf(mEstadio.get(key).GetEstadioId()));
+					bwEst.newLine();
+					bwEst.write(mEstadio.get(key).GetEstadioDireccion());
+					bwEst.newLine();
+					bwEst.write(mEstadio.get(key).GetEstadioCiudad());
+					bwEst.newLine();
+					bwEst.write(String.valueOf(mEstadio.get(key).GetEstadioCapacidad()));
+					bwEst.newLine();
+					
+				}
+			}
+			bwEst.close();
+		}
+		catch(IOException e){
+			System.out.println("Error de E/S");
+		}
 	}
 	public void CargarDatos(){
-		
+		//Declaraciones
+		int idestadio, capacidad;
+		String direccion, ciudad;
+		Estadio estadio;
+		estadio = null;
+		String linea = null;
+		try{
+			BufferedReader brEst = new BufferedReader(new FileReader("Estadio.txt"));
+			//Cargo el estadio
+			if(mEstadio.isEmpty()){
+				while((linea = brEst.readLine()) != null){
+					idestadio = Integer.parseInt(linea);
+					direccion = brEst.readLine();
+					ciudad = brEst.readLine();
+					capacidad = Integer.parseInt(brEst.readLine());
+					estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
+					mEstadio.put(idestadio, estadio);
+				}
+			}
+			brEst.close();
+		}
+		catch(IOException e){
+			System.out.println("Error de E/S");
+		}
 	}
 	//public void CalcularCampeonTemporada(){ **OPCIONAL**
 	//public void CalcularPosicionesEquipos(){ **OPCIONAL**
