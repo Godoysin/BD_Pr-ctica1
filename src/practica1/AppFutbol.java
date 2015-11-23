@@ -1022,6 +1022,12 @@ public class AppFutbol{
 				}
 			}
 			bwEst.close();
+			//Salvo los arbitros
+			BufferedWriter bwArb = new BufferedWriter(new FileWriter("Arbitro.txt"));
+			it = mArbitro.keySet().iterator();
+			while(it.hasNext()){
+				key = it.next();
+			}
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");
@@ -1040,41 +1046,42 @@ public class AppFutbol{
 		String linea = null;
 		try{
 			//Cargo los equipos
+			//Sé que lo hace bien sin jugadores
 			BufferedReader brEq = new BufferedReader(new FileReader("Equipo.txt"));
 			if(mEquipo.isEmpty()){
 				while((linea = brEq.readLine()) != null){
 					estadio = null;
 					idequipo = Integer.parseInt(linea);
-					aux = Integer.parseInt(linea);
+					aux = Integer.parseInt(brEq.readLine());
 					if(aux == 0){
 						estadio = null;
 					}
 					else{
-						idestadio = Integer.parseInt(linea);
-						direccion = linea;
-						ciudad = linea;
-						capacidad = Integer.parseInt(linea);
+						idestadio = Integer.parseInt(brEq.readLine());
+						direccion = brEq.readLine();
+						ciudad = brEq.readLine();
+						capacidad = Integer.parseInt(brEq.readLine());
 						estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
 					}
-					puntos = Integer.parseInt(linea);
+					puntos = Integer.parseInt(brEq.readLine());
 					equipo = new Equipo(idequipo, puntos);
 					if(estadio != null){
 						equipo.AltaEstadio(estadio);
 					}
-					aux = Integer.parseInt(linea);
+					aux = Integer.parseInt(brEq.readLine());
 					if(aux == 0){
 						jugador = null;
 					}
 					else{
-						for(i = 0; i < Integer.parseInt(linea); i++){
-							id = Integer.parseInt(linea);
-							nombre = linea;
-							email = linea;
-							tlf = linea;
-							salario = Integer.parseInt(linea);
-							posicion = linea;
-							titular = Boolean.parseBoolean(linea);
-							numero = Integer.parseInt(linea);
+						for(i = 0; i < aux; i++){
+							id = Integer.parseInt(brEq.readLine());
+							nombre = brEq.readLine();
+							email = brEq.readLine();
+							tlf = brEq.readLine();
+							salario = Integer.parseInt(brEq.readLine());
+							posicion = brEq.readLine();
+							titular = Boolean.parseBoolean(brEq.readLine());
+							numero = Integer.parseInt(brEq.readLine());
 							persona = new Personas(id, nombre, email, tlf);
 							jugador = new Jugador(persona, salario, posicion, titular, numero);
 							equipo.AltaJugador(jugador);
@@ -1089,9 +1096,9 @@ public class AppFutbol{
 			if(mEstadio.isEmpty()){
 				while((linea = brEst.readLine()) != null){
 					idestadio = Integer.parseInt(linea);
-					direccion = linea;
-					ciudad = linea;
-					capacidad = Integer.parseInt(linea);
+					direccion = brEst.readLine();
+					ciudad = brEst.readLine();
+					capacidad = Integer.parseInt(brEst.readLine());
 					estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
 					mEstadio.put(idestadio, estadio);
 				}
