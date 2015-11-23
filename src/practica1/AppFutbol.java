@@ -497,6 +497,7 @@ public class AppFutbol{
 			}
 		}
 	}
+	//Done
 	public void AltaPartido(){
 		//Declaraciones
 		Estadio estadio;
@@ -586,7 +587,7 @@ public class AppFutbol{
 						}while(bucle);
 						jugador1 = equipo1.ejugador;
 						jugador2 = equipo2.ejugador;
-						ListarPartidos();
+						ListarEstadios();
 						do{
 							bucle = true;
 							System.out.println("Introduzca el estadio donde se juega el partido");
@@ -651,10 +652,10 @@ public class AppFutbol{
 													System.out.println("Ese árbitro ya está en el partido");
 													repetido = true;
 												}
-												if(repetido == false){
-													arbitro.add(mArbitro.get(key));
-												}
 												bucle = false;
+											}
+											if(repetido == false){
+												arbitro.add(mArbitro.get(key));
 											}
 										}
 									}
@@ -781,6 +782,7 @@ public class AppFutbol{
 			}
 		}
 	}
+	//DONE
 	public void ContarPartidos(){
 		//Declaraciones
 		if(mPartido.isEmpty()){
@@ -790,6 +792,7 @@ public class AppFutbol{
 			System.out.println("Hay " + mPartido.size() + " partidos");
 		}
 	}
+	//DONE
 	public void ListarPartidos(){ //devuelve info del partido dada una fecha
 		//Declaraciones
 		int anio, mes, dia, i;
@@ -814,6 +817,7 @@ public class AppFutbol{
 			}
 		}
 	}
+	//DONE
 	public void ListarPartidosEquipo(){//Devuelve la info del partido dado un equipo
 		//Declaraciones
 		int id, i;
@@ -826,6 +830,7 @@ public class AppFutbol{
 			System.out.println("No hay partidos en el sistema");
 		}
 		else{
+			ListarEquipos();
 			do{
 				bucle = true;
 				id = EquipoId();
@@ -870,7 +875,7 @@ public class AppFutbol{
 				System.out.println("Los jugadores en la posición de " + posicion + " son:");
 				for (Entry<Integer, Jugador> jugador : mJugador.entrySet()){
 					Jugador valor = jugador.getValue();
-					if(valor.GetJugadorPosicion() == posicion){
+					if(valor.GetJugadorPosicion().compareTo(posicion) == 0){
 						System.out.print("El jugador con id: " + valor.GetPersonaId());
 						System.out.print(", de nombre: " + valor.GetPersonaNombre());
 						System.out.print(", con email: " + valor.GetPersonaEmail());

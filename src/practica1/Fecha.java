@@ -14,7 +14,7 @@ public class Fecha{
     
     public Fecha(int anio, int mes, int dia, int hora, int minuto){
         this.fanio = anio;
-        this.fmes = mes-1;
+        this.fmes = mes;
         this.fdia = dia;
         this.fhora = hora;
         this.fminuto = minuto;
