@@ -944,11 +944,68 @@ public class AppFutbol{
 	}
 	public void Salvar(){
 		//Declaraciones
+		int i;
 		Iterator<Integer> it;
 		Object key;
 		try{
-			BufferedWriter bwEst = new BufferedWriter(new FileWriter("Estadio.txt"));
+			//Salvo los equipos
+			BufferedWriter bwEq = new BufferedWriter(new FileWriter("Equipo.txt"));
+			if(mEquipo.isEmpty() == false){
+				it = mEquipo.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					bwEq.write(String.valueOf(mEquipo.get(key).GetEquipoId()));
+					bwEq.newLine();
+					if(mEquipo.get(key).GetEquipoEstadio() == null){
+						bwEq.write("0");
+						bwEq.newLine();
+					}
+					else{
+						bwEq.write("1");
+						bwEq.newLine();
+						bwEq.write(String.valueOf(mEquipo.get(key).GetEquipoEstadio().GetEstadioId()));
+						bwEq.newLine();
+						bwEq.write(mEquipo.get(key).GetEquipoEstadio().GetEstadioDireccion());
+						bwEq.newLine();
+						bwEq.write(mEquipo.get(key).GetEquipoEstadio().GetEstadioCiudad());
+						bwEq.newLine();
+						bwEq.write(String.valueOf(mEquipo.get(key).GetEquipoEstadio().GetEstadioCapacidad()));
+						bwEq.newLine();
+					}
+					bwEq.write(String.valueOf(mEquipo.get(key).GetEquipoPuntos()));
+					bwEq.newLine();
+					if(mEquipo.get(key).ejugador.isEmpty()){
+						bwEq.write("0");
+						bwEq.newLine();
+					}
+					else{
+						bwEq.write(String.valueOf(mEquipo.get(key).ejugador.size()));
+						bwEq.newLine();
+						for(i = 0; i < mEquipo.get(key).ejugador.size(); i++){
+							bwEq.write(String.valueOf(mEquipo.get(key).ejugador.get(i).GetPersonaId()));
+							bwEq.newLine();
+							bwEq.write(mEquipo.get(key).ejugador.get(i).GetPersonaNombre());
+							bwEq.newLine();
+							bwEq.write(mEquipo.get(key).ejugador.get(i).GetPersonaEmail());
+							bwEq.newLine();
+							bwEq.write(mEquipo.get(key).ejugador.get(i).GetPersonaTlf());
+							bwEq.newLine();
+							bwEq.write(String.valueOf(mEquipo.get(key).ejugador.get(i).GetJugadorSalario()));
+							bwEq.newLine();
+							bwEq.write(mEquipo.get(key).ejugador.get(i).GetJugadorPosicion());
+							bwEq.newLine();
+							bwEq.write(String.valueOf(mEquipo.get(key).ejugador.get(i).GetJugadorTitular()));
+							bwEq.newLine();
+							bwEq.write(String.valueOf(mEquipo.get(key).ejugador.get(i).GetJugadorNumero()));
+							bwEq.newLine();
+						}
+					}
+					
+				}
+			}
+			bwEq.close();
 			//Salvo los estadios
+			BufferedWriter bwEst = new BufferedWriter(new FileWriter("Estadio.txt"));
 			if(mEstadio.isEmpty() == false){
 				it = mEstadio.keySet().iterator();
 				while(it.hasNext()){
@@ -972,20 +1029,69 @@ public class AppFutbol{
 	}
 	public void CargarDatos(){
 		//Declaraciones
-		int idestadio, capacidad;
-		String direccion, ciudad;
+		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, aux;
+		String direccion, ciudad, nombre, email, tlf, posicion;
+		Boolean titular;
+		Equipo equipo;
 		Estadio estadio;
+		Jugador jugador;
+		Personas persona;
 		estadio = null;
 		String linea = null;
 		try{
+			//Cargo los equipos
+			BufferedReader brEq = new BufferedReader(new FileReader("Equipo.txt"));
+			if(mEquipo.isEmpty()){
+				while((linea = brEq.readLine()) != null){
+					estadio = null;
+					idequipo = Integer.parseInt(linea);
+					aux = Integer.parseInt(linea);
+					if(aux == 0){
+						estadio = null;
+					}
+					else{
+						idestadio = Integer.parseInt(linea);
+						direccion = linea;
+						ciudad = linea;
+						capacidad = Integer.parseInt(linea);
+						estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
+					}
+					puntos = Integer.parseInt(linea);
+					equipo = new Equipo(idequipo, puntos);
+					if(estadio != null){
+						equipo.AltaEstadio(estadio);
+					}
+					aux = Integer.parseInt(linea);
+					if(aux == 0){
+						jugador = null;
+					}
+					else{
+						for(i = 0; i < Integer.parseInt(linea); i++){
+							id = Integer.parseInt(linea);
+							nombre = linea;
+							email = linea;
+							tlf = linea;
+							salario = Integer.parseInt(linea);
+							posicion = linea;
+							titular = Boolean.parseBoolean(linea);
+							numero = Integer.parseInt(linea);
+							persona = new Personas(id, nombre, email, tlf);
+							jugador = new Jugador(persona, salario, posicion, titular, numero);
+							equipo.AltaJugador(jugador);
+						}
+					}
+					mEquipo.put(idequipo, equipo);
+				}
+			}
+			brEq.close();
+			//Cargo los estadios
 			BufferedReader brEst = new BufferedReader(new FileReader("Estadio.txt"));
-			//Cargo el estadio
 			if(mEstadio.isEmpty()){
 				while((linea = brEst.readLine()) != null){
 					idestadio = Integer.parseInt(linea);
-					direccion = brEst.readLine();
-					ciudad = brEst.readLine();
-					capacidad = Integer.parseInt(brEst.readLine());
+					direccion = linea;
+					ciudad = linea;
+					capacidad = Integer.parseInt(linea);
 					estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
 					mEstadio.put(idestadio, estadio);
 				}
