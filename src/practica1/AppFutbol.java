@@ -1004,6 +1004,31 @@ public class AppFutbol{
 				}
 			}
 			bwEq.close();
+			//Salvo los jugadores
+			BufferedWriter bwJu = new BufferedWriter(new FileWriter("Jugadores.txt"));
+			if(mJugador.isEmpty() == false){
+				it = mJugador.keySet().iterator();
+				while(it.hasNext()){
+					key = it.next();
+					bwJu.write(String.valueOf(mJugador.get(key).GetPersonaId()));
+					bwJu.newLine();
+					bwJu.write(mJugador.get(key).GetPersonaNombre());
+					bwJu.newLine();
+					bwJu.write(mJugador.get(key).GetPersonaEmail());
+					bwJu.newLine();
+					bwJu.write(mJugador.get(key).GetPersonaTlf());
+					bwJu.newLine();
+					bwJu.write(String.valueOf(mJugador.get(key).GetJugadorSalario()));
+					bwJu.newLine();
+					bwJu.write(mJugador.get(key).GetJugadorPosicion());
+					bwJu.newLine();
+					bwJu.write(String.valueOf(mJugador.get(key).GetJugadorTitular()));
+					bwJu.newLine();
+					bwJu.write(String.valueOf(mJugador.get(key).GetJugadorNumero()));
+					bwJu.newLine();
+				}
+			}
+			bwJu.close();
 			//Salvo los estadios
 			BufferedWriter bwEst = new BufferedWriter(new FileWriter("Estadio.txt"));
 			if(mEstadio.isEmpty() == false){
@@ -1105,6 +1130,24 @@ public class AppFutbol{
 				}
 			}
 			brEq.close();
+			//Cargo los jugadores
+			BufferedReader brJu = new BufferedReader(new FileReader("Jugadores.txt"));
+			if(mEstadio.isEmpty()){
+				while((linea = brJu.readLine()) != null){
+					id = Integer.parseInt(linea);
+					nombre = brJu.readLine();
+					email = brJu.readLine();
+					tlf = brJu.readLine();
+					salario = Integer.parseInt(brJu.readLine());
+					posicion = brJu.readLine();
+					titular = Boolean.parseBoolean(brJu.readLine());
+					numero = Integer.parseInt(brJu.readLine());
+					persona = new Personas(id, nombre, email, tlf);
+					jugador = new Jugador(persona, salario, posicion, titular, numero);
+					mJugador.put(id, jugador);
+				}
+			}
+			brJu.close();
 			//Cargo los estadios
 			BufferedReader brEst = new BufferedReader(new FileReader("Estadio.txt"));
 			if(mEstadio.isEmpty()){
@@ -1119,7 +1162,7 @@ public class AppFutbol{
 			}
 			brEst.close();
 			//Cargo los árbitros
-			BufferedReader brArb = new BufferedReader(new FileReader("Arbitros.txt"));
+			BufferedReader brArb = new BufferedReader(new FileReader("Arbitro.txt"));
 			if(mArbitro.isEmpty()){
 				while((linea = brArb.readLine()) != null){
 					tipo = linea;
