@@ -1278,7 +1278,6 @@ public class AppFutbol{
 		String linea = null;
 		try{
 			//Cargo los equipos
-			//Sé que lo hace bien sin jugadores
 			BufferedReader brEq = new BufferedReader(new FileReader("Equipo.txt"));
 			if(mEquipo.isEmpty()){
 				while((linea = brEq.readLine()) != null){
@@ -1372,8 +1371,16 @@ public class AppFutbol{
 			//Cargo los Partidos
 			BufferedReader brPar = new BufferedReader(new FileReader("Partidos.txt"));
 			if(mPartido.isEmpty()){
-				
+				while((linea = brPar.readLine()) != null){
+					idpartido = Integer.parseInt(linea);
+					idestadio = Integer.parseInt(brEst.readLine());
+					direccion = brEst.readLine();
+					ciudad = brEst.readLine();
+					capacidad = Integer.parseInt(brEst.readLine());
+					estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
+				}
 			}
+			brPar.close();
 		}
 		catch(IOException e){
 			System.out.println("Error de E/S");
