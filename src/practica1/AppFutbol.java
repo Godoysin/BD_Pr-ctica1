@@ -1098,9 +1098,9 @@ public class AppFutbol{
 					bwPar.newLine();
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaMinuto()));
 					bwPar.newLine();
+					//Equipo1
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoId()));
 					bwPar.newLine();
-					//Equipo1
 					if(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio() == null){
 						bwPar.write("0");
 						bwPar.newLine();
@@ -1266,14 +1266,19 @@ public class AppFutbol{
 	}
 	public void CargarDatos(){
 		//Declaraciones
-		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, idpartido, aux;
+		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, idpartido, aux, anio, mes, dia, hora, minuto, golesEq1, golesEq2;
 		String direccion, ciudad, nombre, email, tlf, posicion, tipo;
-		Boolean titular;
-		Equipo equipo;
-		Estadio estadio;
+		Boolean titular, ida;
+		Partido partido;
+		Fecha fecha;
+		Equipo equipo, equipo1, equipo2;
+		Estadio estadio, estadio1, estadio2;
 		Arbitro arbitro;
-		Jugador jugador;
-		Personas persona;
+		Jugador jugador, jugador1, jugador2;
+		Personas persona, persona1, persona2;
+		ArrayList<Arbitro> aarbitro = new ArrayList<Arbitro>();
+		ArrayList<Jugador> ajugador1 = new ArrayList<Jugador>();
+		ArrayList<Jugador> ajugador2 = new ArrayList<Jugador>();
 		estadio = null;
 		String linea = null;
 		try{
@@ -1368,16 +1373,136 @@ public class AppFutbol{
 				}
 			}
 			brArb.close();
-			//Cargo los Partidos
+			//Cargo los Partidos TODO
 			BufferedReader brPar = new BufferedReader(new FileReader("Partidos.txt"));
 			if(mPartido.isEmpty()){
 				while((linea = brPar.readLine()) != null){
 					idpartido = Integer.parseInt(linea);
-					idestadio = Integer.parseInt(brEst.readLine());
-					direccion = brEst.readLine();
-					ciudad = brEst.readLine();
-					capacidad = Integer.parseInt(brEst.readLine());
+					//Estadio
+					idestadio = Integer.parseInt(brPar.readLine());
+					direccion = brPar.readLine();
+					ciudad = brPar.readLine();
+					capacidad = Integer.parseInt(brPar.readLine());
 					estadio = new Estadio(idestadio, direccion, ciudad, capacidad);
+					//Fecha
+					anio = Integer.parseInt(brPar.readLine());
+					mes = Integer.parseInt(brPar.readLine());
+					dia = Integer.parseInt(brPar.readLine());
+					hora = Integer.parseInt(brPar.readLine());
+					minuto = Integer.parseInt(brPar.readLine());
+					fecha = new Fecha(anio, mes, dia, hora, minuto);
+					//Equipo1
+					idequipo = Integer.parseInt(brPar.readLine());
+					aux = Integer.parseInt(brPar.readLine());
+					if(aux == 0){
+						estadio1 = null;
+					}
+					else{
+						idestadio = Integer.parseInt(brPar.readLine());
+						direccion = brPar.readLine();
+						ciudad = brPar.readLine();
+						capacidad = Integer.parseInt(brPar.readLine());
+						estadio1 = new Estadio(idestadio, direccion, ciudad, capacidad);
+					}
+					puntos = Integer.parseInt(brPar.readLine());
+					equipo1 = new Equipo(idequipo, puntos);
+					equipo1.AltaEstadio(estadio1);
+					aux = Integer.parseInt(brPar.readLine());
+					for(i = 0; i < aux; i++){
+						id = Integer.parseInt(linea);
+						nombre = brPar.readLine();
+						email = brPar.readLine();//TODO por aqui peta
+						tlf = brPar.readLine();
+						salario = Integer.parseInt(brPar.readLine());
+						posicion = brPar.readLine();
+						titular = Boolean.parseBoolean(brPar.readLine());
+						numero = Integer.parseInt(brPar.readLine());
+						persona1 = new Personas(id, nombre, email, tlf);
+						jugador1 = new Jugador(persona1, salario, posicion, titular, numero);
+						ajugador1.add(jugador1);
+						equipo1.AltaJugador(jugador1);
+					}
+					//Equipo2
+					idequipo = Integer.parseInt(brPar.readLine());
+					aux = Integer.parseInt(brPar.readLine());
+					if(aux == 0){
+						estadio2 = null;
+					}
+					else{
+						idestadio = Integer.parseInt(brPar.readLine());
+						direccion = brPar.readLine();
+						ciudad = brPar.readLine();
+						capacidad = Integer.parseInt(brPar.readLine());
+						estadio2 = new Estadio(idestadio, direccion, ciudad, capacidad);
+					}
+					puntos = Integer.parseInt(brPar.readLine());
+					equipo2 = new Equipo(idequipo, puntos);
+					equipo2.AltaEstadio(estadio2);
+					aux = Integer.parseInt(brPar.readLine());
+					for(i = 0; i < aux; i++){
+						id = Integer.parseInt(brPar.readLine());
+						nombre = brPar.readLine();
+						email = brPar.readLine();
+						tlf = brPar.readLine();
+						salario = Integer.parseInt(brPar.readLine());
+						posicion = brPar.readLine();
+						titular = Boolean.parseBoolean(brPar.readLine());
+						numero = Integer.parseInt(brPar.readLine());
+						persona2 = new Personas(id, nombre, email, tlf);
+						jugador2 = new Jugador(persona2, salario, posicion, titular, numero);
+						ajugador2.add(jugador2);
+						equipo2.AltaJugador(jugador2);
+					}
+					//Ida
+					ida = Boolean.parseBoolean(brPar.readLine());
+					//Arbitros
+					aux = Integer.parseInt(brPar.readLine());
+					for(i = 0; i < aux; i++){
+						id = Integer.parseInt(brPar.readLine());
+						nombre = brPar.readLine();
+						email = brPar.readLine();
+						tlf = brPar.readLine();
+						tipo = brPar.readLine();
+						persona1 = new Personas(id, nombre, email, tlf);
+						arbitro = new Arbitro(persona1, tipo);
+						aarbitro.add(arbitro);
+					}
+					//Jugador1
+					aux = Integer.parseInt(brPar.readLine());
+					for(i = 0; i < aux; i++){
+						id = Integer.parseInt(brPar.readLine());
+						nombre = brPar.readLine();
+						email = brPar.readLine();
+						tlf = brPar.readLine();
+						salario = Integer.parseInt(brPar.readLine());
+						posicion = brPar.readLine();
+						titular = Boolean.parseBoolean(brPar.readLine());
+						numero = Integer.parseInt(brPar.readLine());
+						persona1 = new Personas(id, nombre, email, tlf);
+						jugador1 = new Jugador(persona1, salario, posicion, titular, numero);
+						ajugador1.add(jugador1);
+					}
+					//Jugador2
+					aux = Integer.parseInt(brPar.readLine());
+					for(i = 0; i < aux; i++){
+						id = Integer.parseInt(brPar.readLine());
+						nombre = brPar.readLine();
+						email = brPar.readLine();
+						tlf = brPar.readLine();
+						salario = Integer.parseInt(brPar.readLine());
+						posicion = brPar.readLine();
+						titular = Boolean.parseBoolean(brPar.readLine());
+						numero = Integer.parseInt(brPar.readLine());
+						persona2 = new Personas(id, nombre, email, tlf);
+						jugador2 = new Jugador(persona2, salario, posicion, titular, numero);
+						ajugador1.add(jugador2);
+					}
+					golesEq1 = Integer.parseInt(brPar.readLine());
+					golesEq2 = Integer.parseInt(brPar.readLine());
+					//public Partido(int idpartido, Estadio estadio, Fecha fecha, Equipo equipo1, Equipo equipo2, Boolean ida, 
+		            //ArrayList<Arbitro> arbitro, ArrayList<Jugador> jugador1, ArrayList<Jugador> jugador2, int golesEq1, int golesEq2){
+					partido = new Partido(idpartido, estadio, fecha, equipo1, equipo2, ida, aarbitro, ajugador1, ajugador2, golesEq1, golesEq2);
+					mPartido.add(partido);
 				}
 			}
 			brPar.close();
