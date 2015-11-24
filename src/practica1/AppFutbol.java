@@ -947,6 +947,7 @@ public class AppFutbol{
 			}
 		}
 	}
+	//DONE
 	public void Salvar(){
 		//Declaraciones
 		int i, j;
@@ -1074,8 +1075,10 @@ public class AppFutbol{
 			BufferedWriter bwPar = new BufferedWriter(new FileWriter("Partidos.txt"));
 			if(mPartido.isEmpty() == false){
 				for(i = 0; i < mPartido.size(); i++){
+					//PartidoId
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoId()));
 					bwPar.newLine();
+					//Estadio
 					bwPar.write(String.valueOf(mPartido.get(i).GetParidoEstadio().GetEstadioId()));
 					bwPar.newLine();
 					bwPar.write(mPartido.get(i).GetParidoEstadio().GetEstadioDireccion());
@@ -1084,6 +1087,7 @@ public class AppFutbol{
 					bwPar.newLine();
 					bwPar.write(String.valueOf(mPartido.get(i).GetParidoEstadio().GetEstadioCapacidad()));
 					bwPar.newLine();
+					//Fecha
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaAnio()));
 					bwPar.newLine();
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoFecha().GetFechaMes()));
@@ -1096,6 +1100,7 @@ public class AppFutbol{
 					bwPar.newLine();
 					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().GetEquipoId()));
 					bwPar.newLine();
+					//Equipo1
 					if(mPartido.get(i).GetPartidoEquipo1().GetEquipoEstadio() == null){
 						bwPar.write("0");
 						bwPar.newLine();
@@ -1141,7 +1146,116 @@ public class AppFutbol{
 						}
 					}
 					//Equipo2
-					
+					if(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio() == null){
+						bwPar.write("0");
+						bwPar.newLine();
+					}
+					else{
+						bwPar.write("1");
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio().GetEstadioId()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio().GetEstadioDireccion());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio().GetEstadioCiudad());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio().GetEstadioCapacidad()));
+						bwPar.newLine();
+					}
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().GetEquipoPuntos()));
+					bwPar.newLine();
+					if(mPartido.get(i).GetPartidoEquipo2().ejugador.isEmpty()){
+						bwPar.write("0");
+						bwPar.newLine();
+					}
+					else{
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.size()));
+						bwPar.newLine();
+						for(j = 0; j < mPartido.get(i).GetPartidoEquipo2().ejugador.size(); j++){
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaId()));
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaNombre());
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaEmail());
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaTlf());
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorSalario()));
+							bwPar.newLine();
+							bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorPosicion());
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorTitular()));
+							bwPar.newLine();
+							bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorNumero()));
+							bwPar.newLine();
+						}
+					}
+					//Ida
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoIda()));
+					bwPar.newLine();
+					//Arbitros
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoArbitro().size()));
+					bwPar.newLine();
+					for(j = 0; j < mPartido.get(i).GetPartidoArbitro().size(); j++){
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoArbitro().get(j).GetPersonaId()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoArbitro().get(j).GetPersonaNombre());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoArbitro().get(j).GetPersonaEmail());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoArbitro().get(j).GetPersonaTlf());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoArbitro().get(j).GetArbitroTipo());
+						bwPar.newLine();
+					}
+					//JugadoresEq1
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.size()));
+					bwPar.newLine();
+					for(j = 0; j < mPartido.get(i).GetPartidoEquipo1().ejugador.size(); j++){
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaId()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaNombre());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaEmail());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetPersonaTlf());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorSalario()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorPosicion());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorTitular()));
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo1().ejugador.get(j).GetJugadorNumero()));
+						bwPar.newLine();
+					}
+					//JugadoresEq2
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.size()));
+					bwPar.newLine();
+					for(j = 0; j < mPartido.get(i).GetPartidoEquipo2().ejugador.size(); j++){
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaId()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaNombre());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaEmail());
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetPersonaTlf());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorSalario()));
+						bwPar.newLine();
+						bwPar.write(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorPosicion());
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorTitular()));
+						bwPar.newLine();
+						bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().ejugador.get(j).GetJugadorNumero()));
+						bwPar.newLine();
+					}
+					//GolesEq1
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoGolesEq1()));
+					bwPar.newLine();
+					//GolesEq2
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoGolesEq2()));
+					bwPar.newLine();
 				}
 			}
 			bwPar.close();

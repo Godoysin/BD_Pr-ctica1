@@ -59,7 +59,19 @@ public class Partido{
         return pida;
     }
     
-    public Arbitro GetPartidoArbitro(int id){
+    public ArrayList<Arbitro> GetPartidoArbitro(){
+    	return parbitro;
+    }
+    
+    public ArrayList<Jugador> GetPartidoJugadorEq1(){
+    	return pjugador1;
+    }
+    
+    public ArrayList<Jugador> GetPartidoJugadorEq2(){
+    	return pjugador2;
+    }
+    
+    public Arbitro GetPartidoArbitro_Id(int id){
         //Declaraciones
         Arbitro arbitro = null;
         int i;
@@ -73,7 +85,7 @@ public class Partido{
         return arbitro;
     }
     
-    public Jugador GetPartidoJugadorEq1(int id){
+    public Jugador GetPartidoJugadorEq1_Id(int id){
         //Declaraciones
         Jugador jugador = null;
         int i;
@@ -87,7 +99,7 @@ public class Partido{
         return jugador;
     }
     
-    public Jugador GetPartidoJugadorEq2(int id){
+    public Jugador GetPartidoJugadorEq2_Id(int id){
         //Declaraciones
         Jugador jugador = null;
         int i;
