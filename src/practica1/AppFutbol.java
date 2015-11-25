@@ -844,8 +844,8 @@ public class AppFutbol{
 				}
 			}while(bucle);
 			for(i = 0; i < mPartido.size(); i++){
-				if(mPartido.get(i).GetPartidoEquipo1() == equipo
-						|| mPartido.get(i).GetPartidoEquipo2() == equipo){
+				if(mPartido.get(i).GetPartidoEquipo1().GetEquipoId() == equipo.GetEquipoId()
+						|| mPartido.get(i).GetPartidoEquipo2().GetEquipoId() == equipo.GetEquipoId()){
 					System.out.print("El equipo con id: " + equipo.GetEquipoId());
 					System.out.print(", juega el partido con id: " + mPartido.get(i).GetPartidoId());
 					if(mPartido.get(i).GetPartidoEquipo1() == equipo){
@@ -1146,6 +1146,8 @@ public class AppFutbol{
 						}
 					}
 					//Equipo2
+					bwPar.write(String.valueOf(mPartido.get(i).GetPartidoEquipo2().GetEquipoId()));
+					bwPar.newLine();
 					if(mPartido.get(i).GetPartidoEquipo2().GetEquipoEstadio() == null){
 						bwPar.write("0");
 						bwPar.newLine();
@@ -1264,6 +1266,7 @@ public class AppFutbol{
 			System.out.println("Error de E/S");
 		}
 	}
+	//DONE
 	public void CargarDatos(){
 		//Declaraciones
 		int i, id, idestadio, capacidad, idequipo, puntos, salario, numero, idpartido, aux, anio, mes, dia, hora, minuto, golesEq1, golesEq2;
@@ -1373,7 +1376,7 @@ public class AppFutbol{
 				}
 			}
 			brArb.close();
-			//Cargo los Partidos TODO
+			//Cargo los Partidos
 			BufferedReader brPar = new BufferedReader(new FileReader("Partidos.txt"));
 			if(mPartido.isEmpty()){
 				while((linea = brPar.readLine()) != null){
@@ -1409,9 +1412,9 @@ public class AppFutbol{
 					equipo1.AltaEstadio(estadio1);
 					aux = Integer.parseInt(brPar.readLine());
 					for(i = 0; i < aux; i++){
-						id = Integer.parseInt(linea);
+						id = Integer.parseInt(brPar.readLine());
 						nombre = brPar.readLine();
-						email = brPar.readLine();//TODO por aqui peta
+						email = brPar.readLine();
 						tlf = brPar.readLine();
 						salario = Integer.parseInt(brPar.readLine());
 						posicion = brPar.readLine();
