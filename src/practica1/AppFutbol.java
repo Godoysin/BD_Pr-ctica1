@@ -678,11 +678,13 @@ public class AppFutbol{
 			}
 		}
 	}
+	//TODO DONE con 1 partido
 	public void BajaPartido(){
 		//Declaraciones
 		Boolean bucle, mostrar, error;
 		String aux;
-		int id, i, borrar;
+		int id, i;
+		Partido borrar;
 		if(mPartido.isEmpty()){
 			System.out.println("No hay partidos en el sistema");
 		}
@@ -690,7 +692,7 @@ public class AppFutbol{
 			//Doy la opción de que se le muestren los equipos que hay para que elija uno
 			bucle = mostrar = true;
 			error = false;
-			borrar = 0;
+			borrar = null;
 			try{
 				do{
 					System.out.println("¿Desea que se le muestren los partidos en el sistema? S/N");
@@ -718,7 +720,10 @@ public class AppFutbol{
 			else{
 				//Si quiere verlos
 				if(mostrar){
-					ListarPartidos();
+					for(i = 0; i < mPartido.size(); i++){
+						System.out.print("El partido con id: " + mPartido.get(i).GetPartidoId() + " que se jugó el: ");
+						mPartido.get(i).GetPartidoFecha().GetFecha();
+					}
 				}
 				//Borro el equipo por id
 				bucle = true;
@@ -727,7 +732,7 @@ public class AppFutbol{
 					for(i = 0; i < mPartido.size(); i++){
 						if(mPartido.get(i).GetPartidoId() == id){
 							bucle = false;
-							borrar = id;
+							borrar = mPartido.get(i);
 						}
 					}
 				}while(bucle);
@@ -1514,7 +1519,37 @@ public class AppFutbol{
 			System.out.println("Error de E/S");
 		}
 	}
-	//public void CalcularCampeonTemporada(){ **OPCIONAL**
+	public void CalcularCampeonTemporada(){
+		int[] puntos, equipos;
+		int i;
+		Iterator<Integer> it;
+		Object key;
+		puntos = equipos = null;
+		//Para calcular el campeon hay cojer todos los equipos, ver los puntos que tiene cada uno y añadir
+		//en función de si han ganado o empatado partidos.
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Cojer cada equipo y sus puntos
+			i = 0;
+			for (Entry<Integer, Equipo> equipo : mEquipo.entrySet()){
+				Equipo valor = equipo.getValue();
+				equipos[i] = valor.GetEquipoId();
+				puntos[i] = valor.GetEquipoPuntos();
+				i++;
+			}
+			if(mPartido.isEmpty()){
+				System.out.println("El campeón se ha calculado con los puntos indicados al crear el equipo");
+				System.out.println("No hay partidos en el sistema");
+			}
+			else{
+				//Calcular la ganancia de puntos de cada equipo
+			}
+			//Calcular el campeón
+			//TODO ordenar el vector de mayor a menor a la par que el de ids de equipos
+		}
+	}
 	//public void CalcularPosicionesEquipos(){ **OPCIONAL**
 	
 	//Métodos
