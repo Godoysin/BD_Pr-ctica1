@@ -853,7 +853,7 @@ public class AppFutbol{
 						|| mPartido.get(i).GetPartidoEquipo2().GetEquipoId() == equipo.GetEquipoId()){
 					System.out.print("El equipo con id: " + equipo.GetEquipoId());
 					System.out.print(", juega el partido con id: " + mPartido.get(i).GetPartidoId());
-					if(mPartido.get(i).GetPartidoEquipo1() == equipo){
+					if(mPartido.get(i).GetPartidoEquipo1().GetEquipoId() == equipo.GetEquipoId()){
 						System.out.println(", marcó " + mPartido.get(i).GetPartidoGolesEq1() + " goles");
 					}
 					else{
@@ -1520,11 +1520,10 @@ public class AppFutbol{
 		}
 	}
 	public void CalcularCampeonTemporada(){
-		int[] puntos, equipos;
-		int i;
-		Iterator<Integer> it;
-		Object key;
-		puntos = equipos = null;
+		//int[] puntos, equipos;
+		int puntos[] = new int[mEquipo.size()]; 
+		int equipos[] = new int[mEquipo.size()];
+		int i, j, aux, aux2;
 		//Para calcular el campeon hay cojer todos los equipos, ver los puntos que tiene cada uno y añadir
 		//en función de si han ganado o empatado partidos.
 		if(mEquipo.isEmpty()){
@@ -1545,12 +1544,142 @@ public class AppFutbol{
 			}
 			else{
 				//Calcular la ganancia de puntos de cada equipo
+				for(i = 0; i < mPartido.size(); i++){
+					if(mPartido.get(i).GetPartidoGolesEq1() > mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo1().GetEquipoId()){
+								puntos[j] += 3;
+							}
+						}
+					}
+					if(mPartido.get(i).GetPartidoGolesEq1() < mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo2().GetEquipoId()){
+								puntos[j] += 3;
+							}
+						}
+					}
+					if(mPartido.get(i).GetPartidoGolesEq1() == mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo1().GetEquipoId()){
+								puntos[j] += 1;
+							}
+						}
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo2().GetEquipoId()){
+								puntos[j] += 1;
+							}
+						}
+					}
+				}
 			}
 			//Calcular el campeón
-			//TODO ordenar el vector de mayor a menor a la par que el de ids de equipos
+			for(i = 0; i < puntos.length - 1; i++){
+				for(j = 0; j < puntos.length - i - 1; j++){
+					if(puntos[j+1] > puntos[j]){
+						aux = equipos[j+1];
+						aux2 = puntos[j+1];
+						equipos[j+1] = equipos[j];
+						puntos[j+1] = puntos[j];
+						equipos[j] = aux;
+						puntos[j] = aux2;
+					}
+				}
+			}
+			//Pinto los resultados
+			j = 1;
+			for(i = 0; i < equipos.length; i++){
+				if(j == 1){
+					System.out.println("El equipo con id " + equipos[i] + " queda como campeón");
+				}
+				if((i + 1) != equipos.length){
+					if(puntos[i] > puntos[i+1]){
+						j++;
+					}
+				}
+				i++;
+			};
 		}
 	}
-	//public void CalcularPosicionesEquipos(){ **OPCIONAL**
+	public void CalcularPosicionesEquipos(){
+		int puntos[] = new int[mEquipo.size()]; 
+		int equipos[] = new int[mEquipo.size()];
+		int i, j, aux, aux2;
+		//Para calcular el campeon hay cojer todos los equipos, ver los puntos que tiene cada uno y añadir
+		//en función de si han ganado o empatado partidos.
+		if(mEquipo.isEmpty()){
+			System.out.println("No hay equipos en el sistema");
+		}
+		else{
+			//Cojer cada equipo y sus puntos
+			i = 0;
+			for (Entry<Integer, Equipo> equipo : mEquipo.entrySet()){
+				Equipo valor = equipo.getValue();
+				equipos[i] = valor.GetEquipoId();
+				puntos[i] = valor.GetEquipoPuntos();
+				i++;
+			}
+			if(mPartido.isEmpty()){
+				System.out.println("El campeón se ha calculado con los puntos indicados al crear el equipo");
+				System.out.println("No hay partidos en el sistema");
+			}
+			else{
+				//Calcular la ganancia de puntos de cada equipo
+				for(i = 0; i < mPartido.size(); i++){
+					if(mPartido.get(i).GetPartidoGolesEq1() > mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo1().GetEquipoId()){
+								puntos[j] += 3;
+							}
+						}
+					}
+					if(mPartido.get(i).GetPartidoGolesEq1() < mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo2().GetEquipoId()){
+								puntos[j] += 3;
+							}
+						}
+					}
+					if(mPartido.get(i).GetPartidoGolesEq1() == mPartido.get(i).GetPartidoGolesEq2()){
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo1().GetEquipoId()){
+								puntos[j] += 1;
+							}
+						}
+						for(j = 0; j < equipos.length; j++){
+							if(equipos[j] == mPartido.get(i).GetPartidoEquipo2().GetEquipoId()){
+								puntos[j] += 1;
+							}
+						}
+					}
+				}
+			}
+			//Calcular el campeón
+			for(i = 0; i < puntos.length - 1; i++){
+				for(j = 0; j < puntos.length - i - 1; j++){
+					if(puntos[j+1] > puntos[j]){
+						aux = equipos[j+1];
+						aux2 = puntos[j+1];
+						equipos[j+1] = equipos[j];
+						puntos[j+1] = puntos[j];
+						equipos[j] = aux;
+						puntos[j] = aux2;
+					}
+				}
+			}
+			//Pinto los resultados
+			j = 1;
+			for(i = 0; i < puntos.length; i++){
+				System.out.println("El equipo con id " + equipos[i] + " queda en la posición: " + j + "º");
+				if((i + 1) != equipos.length){
+					if(puntos[i] > puntos[i+1]){
+						j++;
+					}
+				}
+			}
+		}
+	}
+
 	
 	//Métodos
 	public int EquipoId(){

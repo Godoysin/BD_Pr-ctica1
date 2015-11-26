@@ -218,6 +218,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Calcular el campeón");
+                    f.CalcularCampeonTemporada();
                     
                     Espacio();
                     break;
@@ -226,6 +227,7 @@ public class AppFutbolMenu {
                     Espacio();
                     
                     System.out.println("Ha seleccionado: Calcular posiciones");
+                    f.CalcularPosicionesEquipos();
                     
                     Espacio();
                     break;
